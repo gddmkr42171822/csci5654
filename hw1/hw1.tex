@@ -181,6 +181,21 @@ I used the PyGLPK python library to solve this problem.  It used the Simplex alg
 \end{itemize}
 
 \subsection*{(B)}
+The constraints below should be added to ensure that no single food accounts for more than 50\% of the total caloric intake:
+\begin{enumerate}
+\itemsep0em
+  \item $300x_{0} \leq 0.5(300x_{0} + 550x_{1} + 450x_{2} + 25x_{3} + 300x_{4})$\\
+  - Cookies should not account for more than 50\% of the total caloric intake. 
+  \item $550x_{1} \leq 0.5(300x_{0} + 550x_{1} + 450x_{2} + 25x_{3} + 300x_{4})$\\
+  - Ramen should not account for more than 50\% of the total caloric intake. 
+  \item $450x_{2} \leq 0.5(300x_{0} + 550x_{1} + 450x_{2} + 25x_{3} + 300x_{4})$\\
+  - Rice should not account for more than 50\% of the total caloric intake. 
+  \item $25x_{3} \leq 0.5(300x_{0} + 550x_{1} + 450x_{2} + 25x_{3} + 300x_{4})$\\
+  - Broccoli should not account for more than 50\% of the total caloric intake. 
+  \item $300x_{4} \leq 0.5(300x_{0} + 550x_{1} + 450x_{2} + 25x_{3} + 300x_{4})$\\
+  - CornFlakes should not account for more than 50\% of the total caloric intake.
+  \item $300x_{0} \leq 150x_{0} + 275x_{1} + 225x_{2} + 12.5x_{3} + 15x_{4}$ 
+\end{enumerate}
 
 
 \newpage
