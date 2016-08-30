@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
-\usepackage{amsmath}
+\usepackage{amsmath,listings}
+\usepackage[margin=0.5in]{geometry}
 
 \begin{document}
 
@@ -32,6 +33,7 @@ The problem can now be written in standard form as:
                      x_{1} + 2x^{+}_{2} - 2x^{-}_{2} &\leq 4\\
                      x_{1}, x^{+}_{2}, x^{-}_{2} &\geq 0
 \end{align*}
+\newpage
 
 \section*{P2.}
 \subsection*{Slack, initial dictionary, feasibility}
@@ -92,8 +94,8 @@ After some algebra, the new dictionary after pivoting looks like:\\
   \hline
   $z = 10 - \frac{11}{2}x_{1} - \frac{5}{2}w_{3}$\\
 \end{tabular}
-\\
-\\
+\newpage
+
 \section*{P3.}
 \subsection*{Linear programming model of the problem}
 The client needs to invest money in each of investments options in order to maximize their profit.  Let $x_{i}$ be the amount of money invested in the investment option with ID $i$.  Let $epu_{i}$ be the expected profit per unit for the investment option with ID $i$.  Let $pu_{i}$ be the price per unit for the investment option with ID $i$.  The objective function for this maximization problem can then be written as:
@@ -125,12 +127,65 @@ This says that the total expected profit of all the investments is equal to the 
   - The minimum and maximum investement in EcoFriendly.
   \item $x_{1},...,x_{15} \geq 0$\\
   - You cannot invest a negative amount of money in an investment option.
-
 \end{enumerate}
 
+\subsection*{}
+
+\subsection*{Solution}
+I used the PyGLPK python library to solve this problem.  The problem turned out to be feasible with none of the constraints contradicting each other.  The problem was also unbounded because the maximum of the objective functions was not $\infty$ or $-\infty$.\\ 
+\begin{itemize}
+  \item The optimal value $z$ of the objective function to maximize profit is \$8513.47.
+  \item \$3000 dollars should be invested in the investment option with ID 3 ($x_{3}$).
+  \item \$1500 dollars should be invested in the investment option with ID 10 ($x_{10}$).
+  \item \$500 dollars should be invested in the investment option with ID 12 ($x_{12}$).
+  \item \$5000 dollars should be invested in the investment option with ID 14 ($x_{14}$).
+  \item Nothing should be invested in the other investment options.
+\end{itemize}
+\newpage
 \section*{P4.}
 
+\newpage
+
 \section*{P5.}
+\subsection*{(A)}
+\subsection*{Linear programming model of the problem}
+The goal of this problem is to minimize the total cost of food while meeting all of the caloric nutrient needs.  Let $x_{i}$ represent the food item $i$.  Let $ps_{i}$ represent the price per serving of food item $i$.  The objective function of this minimization problem can then be written as:
+$$
+  \textbf{minimize } .5x_{0} + 2.5x_{1} + .25x_{2} + .2x_{3} + .6x_{4}
+$$
+This says that to minimize the cost of the food that is purchased we need to choose the optimal quantities of each food item.  This is subject to the constraints:
+\begin{enumerate}
+\itemsep0em
+  \item $1800 \leq 300x_{0} + 550x_{1} + 450x_{2} + 25x_{3} + 300x_{4} \leq 2200$\\
+  - The minimum and maximum calories consumed for all of the food items.
+  \item $50 \leq 20x_{0} + 25x_{1} + 25x_{2} + 4x_{3} + 15x_{4} \leq 100$\\
+  - The minimum and maximum carbs consumed for all of the food items.
+  \item $30 \leq 5x_{0} + 8x_{1} + 4x_{2} + 2x_{3} + 3x_{4} \leq 80$\\
+  - The minimum and maximum protein consumed for all of the food items.
+  \item $60 \leq 10x_{0} + 20x_{1} + 5x_{2} + .5x_{3} + .5x_{4} \leq 100$\\
+  - The minimum and maximum fats consumed for all of the food items.
+  \item $3 \leq .1x_{0} + .9x_{1} + .1x_{2} + .1x_{3} + .1x_{4} \leq 5$\\
+  - The minimum and maximum sodium consumed for all of the food items.
+  \item $x_{0}, x_{1}, x_{2}, x_{3}, x_{4} \geq 0$\\
+  - The amount of each nutrient consumed cannot be negative.
+\end{enumerate}
+
+\subsection*{Solution}
+I used the PyGLPK python library to solve this problem.  It used the Simplex algorithm to solve Linear Programming problems.  It gave the following answers:
+\begin{itemize}
+  \item The optimal value $z$ of the objective function to minimize cost is \$7.96.
+  \item 2.76 servings of Ramen $x_{1}$ should be purchased.
+  \item .49 servings of Rice $x_{2}$ should be purchased.
+  \item 4.67 servings of Brocolli $x_{3}$ should be purchased.
+  \item No servings of cookies $x_{0}$ or cornflakes $x_{4}$ should be purchased.
+\end{itemize}
+
+\subsection*{(B)}
 
 
+\newpage
+
+\lstinputlisting[basicstyle=\small]{p3.py}
+
+\lstinputlisting[basicstyle=\small]{p5.py}
 \end{document}

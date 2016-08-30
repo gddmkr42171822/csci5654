@@ -1,27 +1,22 @@
 """
+Robert Werthman
+CSCI 5654
+Homework 1 Problem 3
+
 maximize (expected profit per unit)/(price per unit) x1 +...+ 
          (expected profit per unit)/(price per unit) x15
 
-subject to
-  x1 +...+ x15 <= 10000
-  x1 + x4 + x10 + x13 <= 3500
-  x1 + x4 + x10 + x13 >= 1500
-  x2 + x5 + x8 + x9 + x14 <= 6500
-  x2 + x5 + x8 + x9 + x14 >= 4500
-  x3 + x7 + x11 + x15 <= 3000
-  x3 + x7 + x11 + x15 >= 1000
-  x6 + x12 <= 2500
-  x6 + x12 >= 500
-  x1 + x8 + x11 <= 3000
-  x1 + x8 + x11 >= 0
-  x2 + x3 + x5 + x6 + x7 + x15 <= 4000
-  x2 + x3 + x5 + x6 + x7 + x15 >= 0
-  x4 + x9 + x13 <= 5000
-  x4 + x9 + x13 >= 0
-  x10 + x12 + x14 <= 7000
-  x10 + x12 + x14 >= 0
-  x1 + x2 + x3 + x6 + x7 + x8 + x9 + x10 + x11 + x13 <= 10000
-  x1 + x2 + x3 + x6 + x7 + x8 + x9 + x10 + x11 + x13 >= 2000
+subject to:
+  0 <= x1 +...+ x15 <= 10000
+  1500 <= x1 + x4 + x10 + x13 <= 3500
+  4500 <= x2 + x5 + x8 + x9 + x14 <= 6500
+  1000 <= x3 + x7 + x11 + x15 <= 3000
+  500 <= x6 + x12 <= 2500
+  0 <= x1 + x8 + x11 <= 3000
+  0 <= x2 + x3 + x5 + x6 + x7 + x15 <= 4000
+  0 <= x4 + x9 + x13 <= 5000
+  0 <= x10 + x12 + x14 <= 7000
+  2000 <= x1 + x2 + x3 + x6 + x7 + x8 + x9 + x10 + x11 + x13 <= 10000
   x1,...,x15 >= 0
 """
 import glpk
