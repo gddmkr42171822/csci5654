@@ -143,6 +143,16 @@ I used the PyGLPK python library to solve this problem.  The problem turned out 
 \end{itemize}
 \newpage
 \section*{P4.}
+\subsection*{(A)}
+Let two solutions $y, z \in F$ and let the solution $x = \lambda y + (1 - \lambda)z$ which means $x \in F$ and $x, y, z \geq 0$ (solutions are feasible).  Then we can say
+\begin{align*}
+Ax & = A(\lambda y + (1 - \lambda)z)\\
+  &= \lambda Ay + (1 - \lambda)Az\\
+  &\leq \lambda b + (1 - \lambda)b = b\\
+\end{align*}
+It was shown that the set of feasible solutions $F$ is convex, because any solution $x$ made up of two feasible solutions $y, z \in F$ and of the form $\lambda y + (1 - \lambda)z$ respects the equation $Ax \leq b$.  This makes $x$ a feasible solution $\in F$.
+
+\subsection*{(B)}
 
 \newpage
 
@@ -199,6 +209,7 @@ The constraints below should be added to ensure that no single food accounts for
 \subsection*{Solution}
 I used the command line tool \textbf{glpsol} that comes with GLPK to solve the problem.  I used the GNU MathProg modeling language (GMPL) to create a .mod file with the linear programming model of the problem.  The solver said that with these new constraints there was no feasible solution to this problem.
 
+\subsection*{(C)}
 
 \newpage
 
