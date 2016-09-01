@@ -144,15 +144,25 @@ I used the PyGLPK python library to solve this problem.  The problem turned out 
 \newpage
 \section*{P4.}
 \subsection*{(A)}
-Let two solutions $y, z \in F$ and let the solution $x = \lambda y + (1 - \lambda)z$ which means $x \in F$ and $x, y, z \geq 0$ (solutions are feasible).  Then we can say
-\begin{align*}
-Ax & = A(\lambda y + (1 - \lambda)z)\\
-  &= \lambda Ay + (1 - \lambda)Az\\
-  &\leq \lambda b + (1 - \lambda)b = b\\
-\end{align*}
-It was shown that the set of feasible solutions $F$ is convex, because any solution $x$ made up of two feasible solutions $y, z \in F$ and of the form $\lambda y + (1 - \lambda)z$ respects the equation $Ax \leq b$.  This makes $x$ a feasible solution $\in F$.
+Let two solutions $y, z \in F$ and let the solution $x = \lambda y + (1 - \lambda)z$ which means $x \in F$.  Then we can say
+$$
+Ax = A(\lambda y + (1 - \lambda)z) = \lambda Ay + (1 - \lambda)Az \leq \lambda b + (1 - \lambda)b = b\\
+$$
+The set of feasible solutions $F$ is convex, because any solution $x$ made up of two feasible solutions $y, z \in F$ and of the form $\lambda y + (1 - \lambda)z$ respects the equation $Ax \leq b$.  This makes $x$ a feasible solution $\in F$ and the set $F$ convex.
 
 \subsection*{(B)}
+Both optimal solutions are in a convex set of $O : \{x | c^tx = z^*\}$.  If there are infinitely many optimal solutions in $O$ then there exists a point equal to $\lambda x_{1} + (1 - \lambda)x_{2}$ along the line connecting $x_{1}$ and $x_{2}$ that is also equal $z^*$.\\
+\\
+\noindent
+Let $y = x_{1}$ and $w = x_{2}$ then the optimal objective value is
+$$
+  z^* = C^ty = C^tw
+$$
+Let $x = \lambda y + (1 - \lambda)w$ then we can say 
+$$ 
+  C^tx = C^t(\lambda y + (1 - \lambda)w)) = \lambda C^ty + (1 - \lambda)C^tw = \lambda z^* (1 - \lambda) z^* = z^*
+$$
+It was shown that the solution $x$ of the form $\lambda y + (1 - \lambda)w$ equals the optimal objective value $z^*$.  This means $x$ is in the set $O$ and that the set $O$ is convex.  This means there are infinitely many optimal solutions of the form $\lambda y + (1 - \lambda)w$ where $\lambda \in [0,1]$ in the optimal solution set $O$.
 
 \newpage
 
