@@ -220,6 +220,11 @@ The constraints below should be added to ensure that no single food accounts for
 I used the command line tool \textbf{glpsol} that comes with GLPK to solve the problem.  I used the GNU MathProg modeling language (GMPL) to create a .mod file with the linear programming model of the problem.  The solver said that with these new constraints there was no feasible solution to this problem.
 
 \subsection*{(C)}
+This will be a proof by contradiction.  Let a solution vector $x = (x_0, x_1, x_2, x_3, x_4)$ and two feasible solution vectors $y = (2, 3, 2, 0, 0)$ and $z = (2, 3, 0, 0, 2)$.  If the set of $x, y$ is convex then there is a $w = \lambda x + (1 - \lambda )y$.  Let $\lambda = .5$, the midpoint of a line between $y$ and $x$.  Then
+$$
+  w = .5(x + y) = (\frac{2+2}{2}, \frac{3+3}{2}, \frac{2+0}{2}, \frac{0+0}{2}, \frac{2+0}{2}) = (2, 3, 1, 0, 1)
+$$
+Only two variables in $w$ are $> 1$ which violates the constraint of at least 3 variables (foods) have a serving size $> 1$.  This means the set of solutions with more than 1 serving of at least 3 foods is not convex and therefore cannot be a constraint of a linear program.
 
 \newpage
 
