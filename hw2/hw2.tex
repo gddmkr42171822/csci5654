@@ -1,0 +1,231 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{amsmath,amssymb,amsfonts,float}
+\renewcommand\vec[1]{\mathbf{#1}}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{framed,comment}
+
+\newcommand\red[1]{\textcolor{red}{#1}}
+\specialcomment{solution}{\bigskip\begin{leftbar}\par\noindent\textbf{Solution.} }{\end{leftbar} }
+\begin{document}
+
+\begin{tabular}{l}
+\textbf{CSCI 5654-Fall16}: Assignment \#2 \\
+
+\textbf{Robert Werthman} \phantom{Supercalifragilisticexpialidocius Smith}\\
+\hline
+\\[10pt]
+\end{tabular}
+
+\noindent
+\textbf{P1.}
+
+
+\noindent (A)
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Entering variables & Leaving variables\\
+\hline
+$x_2$ & $w_1\ \text{or}\ w_5$ \\
+\hline
+$x_5$ & $w_5$\\
+\hline
+$x_6$ & $w_2\ \text{or}\ x_3$\\
+\hline
+$w_3$ & $w_2\ \text{or}\ x_3$\\
+\hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+\noindent\textbf{(B)} Suppose $x_2$ were chosen to be the entering
+variable and $w_5$ as the leaving variable. Write down the basic
+variables, non basic variables and their corresponding solutions in
+the  \emph{next} dictionary after pivoting. (It is preferable if you
+answer this problem withing  attempting to actually work out the next
+dictionary.) Will this dictionary be a
+degenerate dictionary?
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Basic variables & Solutions\\
+\hline
+$w_1$ & \\ \hline
+$w_2$ & \\ \hline
+$x_3$ & \\ \hline
+$x_4$ & \\ \hline
+$x_2$ & \\ \hline
+\end{tabular}
+\hspace{1cm}
+\begin{tabular}{|c|c|}
+\hline
+Nonbasic variables\\
+\hline
+$x_1$\\ \hline
+$w_5$\\ \hline
+$x_5$\\ \hline
+$x_6$\\ \hline
+$w_3$\\ \hline
+$w_4$\\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+\noindent\textbf{(C)} Write down the choice of the entering variable
+for which the value of the objective function in the next dictionary
+will be the highest? Will the value of the objective function depend
+on the choice of the leaving variable as well (yes or no) ?
+
+\medskip
+
+
+\textbf{P2. (15 points)}  Consider the following feasible dictionary:
+
+\[\begin{array}{r|c c c c c c c c}
+x_{B,1} & b_1 & + a_{11} x_{N,1} & + \cdots & + \red{a_{1j}} x_{N,j} & \cdots & + a_{1n} x_{N,n}\\
+\vdots & \vdots &  & \ddots & \vdots & \ddots  \\
+x_{B,i} & b_i & +a_{i1} x_{N,1} & + \cdots & +\red{ a_{ij}} x_{N,j} & \cdots
+                                                                & + a_{in} x_{N,n} \\
+\vdots & & \ddots & \\ 
+x_{B,m} & b_m & + a_{m1} x_{N,1} & + \cdots & +\red{ a_{mj} } x_{N,j} &
+                                                                 \cdots  & + a_{mn} x_{N,n} \\
+\hline
+z & c_0 & + c_1 x_{N,1} & + \cdots & + \red{c_j} x_{N,j} & \cdots & + c_n x_{N,n}\\
+\end{array}\]
+
+\noindent \textbf{(A)} Suppose $x_{N,j}$ is chosen to enter and
+$x_{B,i}$ is the corresponding leaving variable, then show that the
+value of $x_{B,k}$ in the next dictionary after pivoting is given by
+\[ b_k + a_{kj} \left(\frac{b_i}{ - a_{ij}}\right)  \,.\]
+
+Also write down for each of the constants $b_k, a_{kj}, b_i, a_{ij}$
+whether it is known that constant will be $> 0$, $< 0$, $\geq 0$,
+$\leq 0$ or nothing may be said about its sign.
+
+\medskip
+
+\noindent \textbf{(B)} Show that if the leaving variable analysis is
+correct then  the value of each basic variable $x_{B,k}$ in the
+subsequent 
+dictionary is  $\geq 0$. In other words: 
+\[  b_k + a_{kj} \left(\frac{b_i}{ - a_{ij}}\right)  \geq 0 \,.\]
+
+In other words, we conclude that starting from a feasible dictionary
+and pivoting yields another feasible dictionary.
+
+(\textbf{Hint:} Split two cases on the sign of $a_{kj}$. For one case
+it will be trivially true. For the other, you have to appeal to the
+leaving variable analysis as to why $x_{B,i}$ was the leaving variable and
+not $x_{B,k}$).
+
+\medskip
+
+
+\noindent\textbf{(C)} Using the analysis above, prove that if $x_{B,k}$
+and $x_{B,i}$ are both possible leaving variables ($i \not= k$) for $x_{N,j}$ entering,
+then  the subsequent dictionary will be degenerate.  (\textbf{Hint:}
+Assume that $x_{B,i}$ is chosen to leave. Show that even though $x_{B,k}$ did not leave the basis, its value in
+the  next dictionary will be $0$).
+
+\bigskip
+
+\noindent\textbf{P3 (10 points)}  Provide examples of dictionaries
+that satisfy the properties stated below. Try to construct
+examples that are as small as possible. If no such
+dictionaries can exist, briefly reason why.
+
+
+\noindent\textbf{(A)} A degenerate dictionary that is also unbounded. 
+Recall that an unbounded dictionary does not have a leaving variable for some
+choice of an entering variable.
+
+\medskip
+
+\noindent\textbf{(B)} A degenerate dictionary $D$ which upon pivoting
+yields another degenerate dictionary $D'$, but the objective value strictly
+increases.
+
+\medskip
+
+\noindent\textbf{(C)} A non-degenerate dictionary $D$ which upon pivoting
+yields another dictionary $D'$ but the value of the objective function
+stays the same.
+
+\medskip
+
+\noindent\textbf{(D)} A dictionary that is feasible but upon pivoting
+yields an infeasible dictionary.
+
+
+\medskip
+
+\noindent\textbf{(E)} A dictionary that does not have leaving variable
+(is unbounded) for one choice of entering variable but has a leaving
+variable for a different choice of an entering variable.
+
+\bigskip
+
+\noindent\textbf{P4 (15 points)}  Consider the polyhedron below:
+\[ \begin{array}{ccccc}
+ -x & + 2 y & + 2z & \leq & 2 \\
+2 x & - y & + 2z & \leq & 2 \\
+x & & & \geq & 0\\
+& y& & \geq & 0 \\
+& & z & \geq & 0 \\
+\end{array}\]
+
+\noindent\textbf{(A)} Compute all the vertices and for each vertex
+write down if it is degenerate or non-degenerate.
+
+\noindent\textbf{(B)} Consider the optimization problem:
+\[ \begin{array}{rcccccc}
+\max & 2x & + 3y & - 2z \\
+\mathsf{s.t} &  -x & + 2 y & + 2z & \leq & 2 & \# Slack\ w_1\\
+& 2 x & - y & + 2z & \leq & 2 & \# Slack\ w_2\\
+& x & & & \geq & 0\\
+& & y& & \geq & 0 \\
+& & & z & \geq & 0 \\
+\end{array}\]
+
+Write down all the dictionaries corresponding to the degenerate
+vertices. Use slack variables $w_1, w_2$ as indicated.
+
+\noindent\textbf{(C)} Draw a graph whose nodes are the vertices
+described in (A) with edges between adjacent vertices. 
+
+\medskip
+
+\noindent\textbf{(D, extra credit)} Given a polyhedron $P$, and for
+each vertex of the polyhedron,  can you  write down an
+objective function that is uniquely maximized only at that vertex and
+no other vertex of $P$? 
+
+
+\medskip
+
+\noindent\textbf{(E, extra credit)} For any polyhedron $P$, the
+polyhedral graph (also called its skeleton) is one where the nodes
+form the vertices of the polyhedron, and the edges connect adjacent
+vertices. Prove that this graph is strongly connected for any
+$P$. I.e, given any two vertices $\mathbf{v}_1$ and $\mathbf{v_2}$
+there is a path between them in this graph.
+
+\medskip
+
+\noindent\textbf{(F, extra credit)}  Prove that the graph in part (E)
+for a d-dimensional polyhedron $P$ has the property that if any subset
+of $d-1$ or fewer vertices in the graph are removed, it will still
+remain strongly connected (This is called Balinski's theorem).
+
+To illustrate this, draw the skeleton of a cube and remove any two
+vertices from this skeleton. You will notice that there is a path in
+this graph between any pair of remaining vertices.
+
+
+
+\end{document}
