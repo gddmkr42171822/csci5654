@@ -41,24 +41,23 @@ $w_3$ & $w_2\ \text{or}\ x_3$\\
 
 \medskip
 
-\noindent\textbf{(B)} Suppose $x_2$ were chosen to be the entering
-variable and $w_5$ as the leaving variable. Write down the basic
-variables, non basic variables and their corresponding solutions in
-the  \emph{next} dictionary after pivoting. (It is preferable if you
-answer this problem withing  attempting to actually work out the next
-dictionary.) Will this dictionary be a
-degenerate dictionary?
-
+\noindent\textbf{(B)}\\ 
+To find the corresponding solutions, we need to solve for $x_2$ in the $w_5$ row of the dictionary:
+$$
+x_2 = 2 - \frac{x_1}{2} - 2x_5 + \frac{w_4}{2} - \frac{w_5}{2}
+$$
+This equation is then plugged into all the places $x_2$ is a nonbasic variable.
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
 Basic variables & Solutions\\
 \hline
-$w_1$ & \\ \hline
-$w_2$ & \\ \hline
-$x_3$ & \\ \hline
-$x_4$ & \\ \hline
-$x_2$ & \\ \hline
+$w_1$ & 0\\ \hline
+$w_2$ & 2\\ \hline
+$x_3$ & 4\\ \hline
+$x_4$ & 1\\ \hline
+$x_2$ & 2\\ \hline
+$z$ & 15\\ \hline
 \end{tabular}
 \hspace{1cm}
 \begin{tabular}{|c|c|}
@@ -73,13 +72,21 @@ $w_3$\\ \hline
 $w_4$\\ \hline
 \end{tabular}
 \end{center}
-
+Yes, this dictionary is degenerate.  The solution $b$ of the basic variable $w_1$ is 0.
 \medskip
 
-\noindent\textbf{(C)} Write down the choice of the entering variable
-for which the value of the objective function in the next dictionary
-will be the highest? Will the value of the objective function depend
-on the choice of the leaving variable as well (yes or no) ?
+\noindent\textbf{(C)}\\
+The next dictionary looks like:
+\[ \begin{array}{r| c c c c c c c}
+w_1 & 0 &- 7x_1 &- 7x_5 &+ w_4 &- 2w_5 &- 2x_6 &+ 2w_3\\
+w_2 & 2 & -x_1 & -x_5 & & & -x_6 & -w_3 \\
+x_3 & 4 & -\frac{x_1}{2} & -\frac{w_5}{2} & -\frac{3w_4}{2} & -\frac{w_5}{2} & -x_6 & -w_3 \\
+x_4 & 1 & -\frac{x_1}{2} & +x_5 & +\frac{w_4}{2} & +\frac{w_5}{2} & -x_6 & +2w_3 \\
+x_2 & 2 & -\frac{x_1}{2} & -2x_5 & +\frac{w_4}{2} & -\frac{w_5}{2} && \\
+\hline
+z & 15 & -2x_1 & -3x_5 & -w_4 & -w_5 & +x_6 & +3w_3 \\
+\end{array}\]
+We can choose betwen $x_6$ and $w_3$ to be the entering variable.  We should choose $w_3$ to be the entering variable, because it increases the value of the objective function $z$ the most.  Since the leaving variable is automatically chosen based on the which basic variable constrains the entering variable the most, the value of the objective function does not depend on the choice of the leaving variable.
 
 \medskip
 
