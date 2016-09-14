@@ -105,16 +105,9 @@ x_{B,m} & b_m & + a_{m1} x_{N,1} & + \cdots & +\red{ a_{mj} } x_{N,j} &
 z & c_0 & + c_1 x_{N,1} & + \cdots & + \red{c_j} x_{N,j} & \cdots & + c_n x_{N,n}\\
 \end{array}\]
 
-\noindent \textbf{(A)} Suppose $x_{N,j}$ is chosen to enter and
-$x_{B,i}$ is the corresponding leaving variable, then show that the
-value of $x_{B,k}$ in the next dictionary after pivoting is given by
-\[ b_k + a_{kj} \left(\frac{b_i}{ - a_{ij}}\right)  \,.\]
-
-Also write down for each of the constants $b_k, a_{kj}, b_i, a_{ij}$
-whether it is known that constant will be $> 0$, $< 0$, $\geq 0$,
-$\leq 0$ or nothing may be said about its sign.
+\noindent \textbf{(A)}
 \\
-$x_{N,j}$ is the entering variable and $x_{B,i}$ is the leaving variable.  This means, first, we need to solve the current equation given for $x_{B,i}$ for $x_{N,j}$.  We start with the equation:
+$x_{N,j}$ is the entering variable and $x_{B,i}$ is the leaving variable.  This means, first, we need to solve the current equation in the dictionary given for $x_{B,i}$ for $x_{N,j}$.  We start with the equation:
 $$
 x_{B,i} = b_i + a_{i1}x_{N,1} + \cdots + a_{ij}x_{N,j} + \cdots + a_{in}x_{N,n}
 $$
@@ -141,19 +134,29 @@ $a_{ij}$ & $< 0$ & Entering variable must be constrained\\ \hline
 
 \medskip
 
-\noindent \textbf{(B)} Show that if the leaving variable analysis is
-correct then  the value of each basic variable $x_{B,k}$ in the
-subsequent 
-dictionary is  $\geq 0$. In other words: 
-\[  b_k + a_{kj} \left(\frac{b_i}{ - a_{ij}}\right)  \geq 0 \,.\]
+\noindent \textbf{(B)}
+\\
+We know $b_i \ge 0$ because the dictionary is feasible and $a_{ij} < 0$ because $x_{N,i}$ had to be constrained in order for $x_{N,j}$ to be chosen as the leaving variable.  We know then that the value of $x_{N,j} = (\frac{b_i}{-a_{ij}}) \ge 0$ because the dictionary is still feasible.  We also know $b_k \ge 0$ because the original dictionary was feasible.  What we don't know is the sign of $a_{kj}$.  It could be negative, positive, or the value could be 0.
+\begin{enumerate}
+\item If $a_{kj}$ is negative, then 
+$
+b_k - a_{kj} \left(\frac{b_i}{ - a_{ij}}\right)  \geq 0
+$
+which could violate the $\ge 0$ if $b_k < -a_{kj} \left(\frac{b_i}{ - a_{ij}}\right)$.  But since we did not choose $x_{B,k}$ as the leaving variable, this means 
+$\frac{b_k}{-a_{kj}} \ge \frac{b_i}{-a_{ij}} \Rightarrow b_k \le -a_{kj}\frac{b_i}{-a_{ij}}$ and not strictly $ < -a_{kj}\frac{b_i}{-a_{ij}}$.
 
-In other words, we conclude that starting from a feasible dictionary
-and pivoting yields another feasible dictionary.
+\item If $a_{kj}$ is 0 then 
+$
+b_k + a_{kj} \left(\frac{b_i}{ - a_{ij}}\right)  \geq 0 \Rightarrow
+b_k \geq 0
+$
 
-(\textbf{Hint:} Split two cases on the sign of $a_{kj}$. For one case
-it will be trivially true. For the other, you have to appeal to the
-leaving variable analysis as to why $x_{B,i}$ was the leaving variable and
-not $x_{B,k}$).
+\item If $a_{kj}$ is positive then
+$
+b_k + a_{kj} \left(\frac{b_i}{ - a_{ij}}\right)  \geq 0
+$
+which, based on the signs of the other constants, is true.
+\end{enumerate}
 
 \medskip
 
@@ -163,6 +166,16 @@ and $x_{B,i}$ are both possible leaving variables ($i \not= k$) for $x_{N,j}$ en
 then  the subsequent dictionary will be degenerate.  (\textbf{Hint:}
 Assume that $x_{B,i}$ is chosen to leave. Show that even though $x_{B,k}$ did not leave the basis, its value in
 the  next dictionary will be $0$).
+\\
+If $x_{B,k}$ and $x_{B,i}$ are both leaving variables for $x_{N,j}$ then the value for $x_{N,j}$ in the equation of $x_{B,k}$ equals the value for $x_{N,j}$ in the equation of $x_{B,i}$.  This means:
+$$
+\frac{b_k}{-a_{kj}} = \frac{b_i}{-a_{ij}}
+$$
+If we choose $x_{B,i}$ to be the leaving variable instead of $x_{B,k}$ then the value of $x_{B,k}$ in the next dictionary is $b_k + a_{kj}(\frac{b_i}{ - a_{ij}})$.  Since $\frac{b_k}{-a_{kj}} = \frac{b_i}{-a_{ij}}$ we get:
+$$
+x_{B,k} = b_k + a_{kj}(\frac{b_i}{ - a_{ij}}) \Rightarrow x_{B,k} = b_k + a_{kj}(\frac{b_k}{-a_{kj}}) = b_k - b_k = 0 
+$$
+Because the value of $x_{B,k} = 0$, the next dictionary will be degenerate.
 
 \bigskip
 
