@@ -91,7 +91,7 @@ We can choose betwen $x_6$ and $w_3$ to be the entering variable.  We should cho
 \medskip
 
 
-\textbf{P2. (15 points)}  Consider the following feasible dictionary:
+\noindent\textbf{P2. (15 points)}  Consider the following feasible dictionary:
 
 \[\begin{array}{r|c c c c c c c c}
 x_{B,1} & b_1 & + a_{11} x_{N,1} & + \cdots & + \red{a_{1j}} x_{N,j} & \cdots & + a_{1n} x_{N,n}\\
@@ -113,6 +113,31 @@ value of $x_{B,k}$ in the next dictionary after pivoting is given by
 Also write down for each of the constants $b_k, a_{kj}, b_i, a_{ij}$
 whether it is known that constant will be $> 0$, $< 0$, $\geq 0$,
 $\leq 0$ or nothing may be said about its sign.
+\\
+$x_{N,j}$ is the entering variable and $x_{B,i}$ is the leaving variable.  This means, first, we need to solve the current equation given for $x_{B,i}$ for $x_{N,j}$.  We start with the equation:
+$$
+x_{B,i} = b_i + a_{i1}x_{N,1} + \cdots + a_{ij}x_{N,j} + \cdots + a_{in}x_{N,n}
+$$
+Solving for $x_{N,j}$ we get the equation:
+$$
+x_{N,j} = \frac{b_i}{-a_{ij}} + \frac{a_{i1}x_{N,1}}{-a_{ij}} + \cdots + \frac{a_{in}x_{N,n}}{-a_{ij}} + \frac{x_{B,i}}{-a_{ij}}
+$$
+The next step is to take that equation and plug it into any instances of $x_{N,j}$ on the nonbasic side of the dictionary.  If we use it in the equation for $x_{B,k}$ then we get the equation:
+$$
+x_{B,k} = b_k + a_{k1}x_{N,1} + \cdots + a_{kj}(\frac{b_i}{-a_{ij}} + \frac{a_{i1}x_{N,1}}{-a_{ij}} + \cdots + \frac{a_{in}x_{N,n}}{-a_{ij}} + \frac{x_{B,i}}{-a_{ij}}) + \cdots + a_{kn}x{N,n}
+$$
+Since we are trying to find the value of $x_{B,k}$, we set all of the nonbasic variables to 0 in the equation for $x_{B,k}$ yielding:
+$$
+x_{B,k} = b_k + a_{kj}(\frac{b_i}{-a_{ij}})
+$$
+\begin{tabular}{|c|c|c|}
+\hline
+Constant & Sign & Reason\\ \hline
+$b_k$ & $\ge 0$ & Dictionary is feasible\\ \hline
+$a_{kj}$ & Nothing may be said about its sign & Coefficient could be any value\\  \hline
+$b_i$ & $\ge 0$ & Dictionary is feasible\\ \hline
+$a_{ij}$ & $< 0$ & Entering variable must be constrained\\ \hline
+\end{tabular}
 
 \medskip
 
