@@ -91,20 +91,8 @@ We can choose betwen $x_6$ and $w_3$ to be the entering variable.  We should cho
 \medskip
 
 
-\noindent\textbf{P2. (15 points)}  Consider the following feasible dictionary:
-
-\[\begin{array}{r|c c c c c c c c}
-x_{B,1} & b_1 & + a_{11} x_{N,1} & + \cdots & + \red{a_{1j}} x_{N,j} & \cdots & + a_{1n} x_{N,n}\\
-\vdots & \vdots &  & \ddots & \vdots & \ddots  \\
-x_{B,i} & b_i & +a_{i1} x_{N,1} & + \cdots & +\red{ a_{ij}} x_{N,j} & \cdots
-                                                                & + a_{in} x_{N,n} \\
-\vdots & & \ddots & \\ 
-x_{B,m} & b_m & + a_{m1} x_{N,1} & + \cdots & +\red{ a_{mj} } x_{N,j} &
-                                                                 \cdots  & + a_{mn} x_{N,n} \\
-\hline
-z & c_0 & + c_1 x_{N,1} & + \cdots & + \red{c_j} x_{N,j} & \cdots & + c_n x_{N,n}\\
-\end{array}\]
-
+\noindent\textbf{P2.}
+\\ 
 \noindent \textbf{(A)}
 \\
 $x_{N,j}$ is the entering variable and $x_{B,i}$ is the leaving variable.  This means, first, we need to solve the current equation in the dictionary given for $x_{B,i}$ for $x_{N,j}$.  We start with the equation:
@@ -161,13 +149,9 @@ which, based on the signs of the other constants, is true.
 \medskip
 
 
-\noindent\textbf{(C)} Using the analysis above, prove that if $x_{B,k}$
-and $x_{B,i}$ are both possible leaving variables ($i \not= k$) for $x_{N,j}$ entering,
-then  the subsequent dictionary will be degenerate.  (\textbf{Hint:}
-Assume that $x_{B,i}$ is chosen to leave. Show that even though $x_{B,k}$ did not leave the basis, its value in
-the  next dictionary will be $0$).
+\noindent\textbf{(C)}
 \\
-If $x_{B,k}$ and $x_{B,i}$ are both leaving variables for $x_{N,j}$ then the value for $x_{N,j}$ in the equation of $x_{B,k}$ equals the value for $x_{N,j}$ in the equation of $x_{B,i}$.  This means:
+If $x_{B,k}$ and $x_{B,i}$ are both possilbe leaving variables for $x_{N,j}$ then the value for $x_{N,j}$ in the equation of $x_{B,k}$ equals the value for $x_{N,j}$ in the equation of $x_{B,i}$.  This means:
 $$
 \frac{b_k}{-a_{kj}} = \frac{b_i}{-a_{ij}}
 $$
@@ -179,39 +163,62 @@ Because the value of $x_{B,k} = 0$, the next dictionary will be degenerate.
 
 \bigskip
 
-\noindent\textbf{P3 (10 points)}  Provide examples of dictionaries
-that satisfy the properties stated below. Try to construct
-examples that are as small as possible. If no such
-dictionaries can exist, briefly reason why.
-
+\noindent\textbf{P3}.
 
 \noindent\textbf{(A)} A degenerate dictionary that is also unbounded. 
 Recall that an unbounded dictionary does not have a leaving variable for some
 choice of an entering variable.
+\\
+\[\begin{array}{r|cccc}
+w_1 & 5 & +2x_2 & -3x_1\\ 
+w_2 & 0 && +x_1 \\
+\hline
+z & 5 & +x2 & -x1
+\end{array}\]
 
 \medskip
 
 \noindent\textbf{(B)} A degenerate dictionary $D$ which upon pivoting
 yields another degenerate dictionary $D'$, but the objective value strictly
 increases.
+\\
+\[\begin{array}{r|cccc}
+w_1 & 5 & -2x_2 & -3x_1\\ 
+w_2 & 0 && +x_1 \\
+\hline
+z & 5 & +x2 & -x1
+\end{array}\]  
 
 \medskip
 
 \noindent\textbf{(C)} A non-degenerate dictionary $D$ which upon pivoting
 yields another dictionary $D'$ but the value of the objective function
 stays the same.
+\\
+\\
+This is not possible.  The only way the value of the objective function $z'$ of a new dictionary $D'$ remains the same is if $b_i = 0$ in the equation $\frac{b_i}{a_{ij}}$.  This can only be the case if $D$ was degenerate.
 
 \medskip
 
 \noindent\textbf{(D)} A dictionary that is feasible but upon pivoting
 yields an infeasible dictionary.
-
+\\
+\\
+This is not possible.  Once you have a feasible dictionary you pivot to other feasible dictionaries.  You cannot pivot to an infeasible dictionary from a feasible dictionary.  You can, however, pivot to a degenerate dictionary from a feasible dictionary.
 
 \medskip
 
 \noindent\textbf{(E)} A dictionary that does not have leaving variable
 (is unbounded) for one choice of entering variable but has a leaving
 variable for a different choice of an entering variable.
+\\
+\[\begin{array}{r|cccc}
+w_1 & 5 & +2x_2 & -3x_1\\ 
+w_2 & 0 && +x_1 \\
+\hline
+z & 5 & +x2 & +x1
+\end{array}\] 
+
 
 \bigskip
 
