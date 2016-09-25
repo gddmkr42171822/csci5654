@@ -1,0 +1,279 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{amsmath,amssymb,amsfonts}
+\renewcommand\vec[1]{\mathbf{#1}}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{framed,comment}
+\newcommand\vx {\mathbf{x}}
+\newcommand\vy {\mathbf{y}}
+\newcommand\red[1]{\textcolor{red}{#1}}
+\specialcomment{solution}{\bigskip\begin{leftbar}\par\noindent\textbf{Solution.} }{\end{leftbar} }
+\begin{document}
+
+\begin{tabular}{l}
+\textbf{CSCI 5654-Fall16}: Assignment \#3 \\
+\textbf{Robert Werthman} \phantom{Supercalifragilisticexpialidocius Smith}\\
+\hline
+\\[10pt]
+\end{tabular}
+
+\noindent
+\textbf{P1.}
+\\
+\noindent (A)
+\\
+Assign dual variables $y_i$ to each of the constraint equations of the primal LP except for the non-negativity constraints.
+\[ \begin{array}{rllllll}
+\max & 2 x_1  & + 3 x_2 & - x_3 & + x_4 \\
+\mathsf{s.t.}\, y_1 \rightarrow & x_1 & - x_2 & + x_3 &   & \leq  -1 \\
+y_2 \rightarrow & x_1 &  & + x_3 & + x_4 & \leq 0 \\
+y_3 \rightarrow &    & 2 x_2 & + x_3 & + 3 x_4 & \leq  4 \\
+& x_1, & x_2, & x_3, & x_4 & \geq  0 \\
+\end{array}\]
+The dual objective is created from the constants in the $b$ column of the primal LP.  The dual constraints are created by the columns of the primal constraints and the coefficients of the primal objective function.
+\[\begin{array}{rllllll}
+\min & -y_1 & & +4y_3 \\
+\mathsf{s.t.} 
+& +y_1 & +y_2 & & \geq 2 \\
+& -y_1 & & +2y_3 & \geq 3 \\
+& +y_1 & +y_2 & +y_3 & \geq -1 \\
+& & +y_2 & +3y_3 & \geq 1 \\
+& y_1, & y_2, & y_3 & \geq 0 \\
+\end{array}\]
+Changing the dual LP into standard form and adding the slack variables $z_1, z_2, \ldots$ we get the following dual problem:
+\[\begin{array}{rllllllll}
+\max & y_1 & & -4y_3 \\
+\mathsf{s.t.} 
+& -y_1 & -y_2 & & +z_1 & = -2 \\
+& +y_1 & & -2y_3 & +z_2 & = -3 \\
+& -y_1 & -y_2 & -y_3 & +z_3 & = +1 \\
+& & -y_2 & -3y_3 & +z_4 & = -1 \\
+& y_1, & y_2, & y_3, & z_1, & z_2, & z_3, & z_4 & \geq 0 \\
+\end{array}\]
+
+
+\medskip
+
+\noindent (B)
+\\
+If the primal objective is $\eta = \max -x_1 - x_2 - x_3 - x_4$ then the dual problem in standard form is
+\[\begin{array}{rllllllll}
+\max & y_1 & & -4y_3 \\
+\mathsf{s.t.} 
+& -y_1 & -y_2 & & +z_1 & = +1 \\
+& +y_1 & & -2y_3 & +z_2 & = +1 \\
+& -y_1 & -y_2 & -y_3 & +z_3 & = +1 \\
+& & -y_2 & -3y_3 & +z_4 & = +1 \\
+& y_1, & y_2, & y_3, & z_1, & z_2, & z_3, & z_4 & \geq 0 \\
+\end{array}\]
+The dual dictionary is
+\[\begin{array}{r|cccccccc}
+z_1 & +1 & +y_1 & +y_2 \\
+z_2 & +1 & -y_1 & & +2y_3 \\
+z_3 & +1 & +y_1 & +y_2 & +y_3 \\
+z_4 & +1 & & +y_2 & +3y_3 \\
+\hline
+-\xi & 0 & +y_1 & & -4y_3
+\end{array}\]
+Since the dual dictionary is feasible and the primal is not we will apply the simplex method to the dual.  The only entering variable we can choose is $y_1$ and the only leaving variable that constrains $y_1$ is $z_2$.  Solving for $y_1$ in the $z_2$ row and subsituting that equation in for all instances of $y_1$ in the nonbasic variables yields the dictionary
+\[\begin{array}{r|cccccccc}
+z_1 & +2 & & +y_2  & +2y_3 & & -z_2\\
+y_1 & +1 & & & +2y_3 & & -z_2\\
+z_3 & +2 & & +y_2 & +3y_3 & & -z_2 \\
+z_4 & +1 & & +y_2 & +3y_3 \\
+\hline
+-\xi & +1 & & & -2y_3 & & -z_2
+\end{array}\]
+The above dictionary is optimal because there are no entering variables.  We now need to convert the dual dictionary above to the corresponding primal dictionary.  $w_i$ corresponds to $y_i$ and $x_i$ corresponds to $z_i$.  If the variable is nonbasic in the dual dictionary it is basic in the primal dictionary.  The primal dictioary we get is
+\[\begin{array}{r|cccccccc}
+w_3 & 2 & -2x_1 & -2w_1 & -3x_3 & -3x_4 \\
+x_2 & 1 & +x_1 & +1w_1 & +1x_3 & & \\
+\hline
+\eta & -1 & -2x_1 & -1w_1 & -2x_3 & -1x_4
+\end{array}\]
+Reinstating the original objective function $\zeta$ fpr $\eta$ we get
+\begin{align*}
+\zeta & = 2x_1 + 3x_2  - x_3 + x_4 \\
+& = 2x_1 + 3(1 +x_1 +w_1 +x_3) - x_3 + x_4 \\
+& = 3 + 5x_1 + 2x_3 + x_4 + 3w_1 \\
+\end{align*}
+
+
+\medskip
+
+\noindent (C)
+\\
+The dual problem is
+\[\begin{array}{rllllll}
+\min & +y_1 & +y_2 & -4y_3 \\
+\mathsf{s.t.}
+& +y_1 & +y_2 & -3y_3 & \geq 1 \\
+& -2y_1 & +y_2 & & \geq -1 \\
+& & -2y_2 & +6y_3 & \geq 1 \\
+y_1, & y_2, & y_3 & \geq 0
+\end{array}\]
+The dual problem in standard form with slack variables $z_1, z_2, \ldots$ and the primal objective function $\eta = -x_1 - x_2 - x_3$ is
+\[\begin{array}{rllllll}
+\max & -y_1 & -y_2 & +4y_3 \\
+\mathsf{s.t.}
+& -y_1 & -y_2 & +3y_3 & +z_1 & = +1 \\
+& +2y_1 & -y_2 & & +z_2 & = +1 \\
+& & +2y_2 & -6y_3 & +z_3 & = +1 \\
+y_1, & y_2, & y_3, & z_1, & z_2, & z_3 & \geq 0
+\end{array}\]
+The dual dictionary is then
+\[\begin{array}{r|cccccccc}
+z_1 & +1 & +y_1 & +y_2 & -3y_3 \\
+z_2 & +1 & -2y_1 & +y_2 & & \\
+z_3 & +1 & & -2y_2 & +6y_3 \\
+\hline
+-\xi & 0 & -y_1 & -y_2 & +4y_3
+\end{array}\]
+The only entering variable is $y_3$ and the only leaving variable is $z_1$.  This produces the new dual dictionary
+\[\begin{array}{r|cccccccc}
+y_3 & \frac{1}{3} & +\frac{y_1}{3} & +\frac{y_2}{3} & & -\frac{z_1}{3}\\
+z_2 & +1 & -2y_1 & +y_2 & & \\
+z_3 & +3 & +2y_1 & & & -2z_1 \\
+\hline
+-\xi & +\frac{4}{3} & +\frac{y_1}{3} & +\frac{y_2}{3} & & -\frac{4z_1}{3}
+\end{array}\]
+We see that $y_2$ is an entering variable, but there is no leaving variable for it.  This means this dual dictionary is unbounded which means the primal LP is infeasible
+\bigskip
+
+
+\noindent\textbf{P2 (15 points) }  \textbf{(A)} For the LP in problem P1 (A) set up the KKT conditions
+following the complementary slackness theorem.
+\\
+The KKT conditions are
+\begin{enumerate}
+  \item $Ax + w = b$ (Primal LP feasibility constraints)
+  \item $A^{t}y - z = c$ (Dual LP feasibility constraints)
+  \item $x, y, w, z \geq 0$ (Nonnegativity constraints)
+  \item $x_iz_i = 0 \, for \, i = 1,2,\ldots,n$ (Complementary slackness)
+  \item $w_jy_j = 0 \, for \, j = 1,2,\ldots,m$ (Complementary slackness)
+\end{enumerate}
+
+\noindent\textbf{(B)} Now solve the KKT conditions to find  dual
+variables corresponding to  the following primal feasible solution?
+\[ x_1 = 0,\ x_2 = 2,\ x_3 = 0,\ x_4 = 0 \]
+
+Is this primal solution optimal? 
+
+Do not attempt to use an LP solver for this part. Instead substitute
+the primal solution into the KKT constraints and solve for dual
+solutions that are dual feasible and complementary to the primal
+solution above.
+\\
+Since $x_2 > 0$, we know that $z_2 = 0$ because of the complementary slackness theorem.  We also know that 
+\begin{align*}
+w_1 & = -1 - x_1 + x_2 - x_3 = -1 + 2 = 1\\
+w_2 & = 0 - x_1 - x_3 - x_4 = 0\\
+w_3 & = 4 - 2x_2 + x_3 +3x_4 = 0\\
+\end{align*}
+This means $y_1 = 0$ must be zero because of the complementary slackness theorem.  This tells us $2y_3 = 3 + y_1 - z_2 \Rightarrow y_3 = \frac{3}{2}$.
+
+
+\begin{tabular}{|c|c|}
+\hline
+Primal & Dual \\ \hline
+$x_1 = $ & $y_1 = 0$ \\ \hline
+$x_2 = $ & $y_2 = $ \\ \hline
+$x_3 = $ & $y_3 = \frac{3}{2}$ \\ \hline
+\end{tabular}
+
+\bigskip
+
+\noindent\textbf{P3 (10 points)} Consider a standard form LP wherein
+two different non-degenerate vertices $\vx_1,\ \vx_2$ are both optimal for the primal. Show using the
+complementary slackness theorem that any dual optimal solution
+is degenerate.
+
+(\textbf{Hint:} Each vertex saturates precisely $n$ of the
+constraints. Now, since the solution $\frac{1}{2} (\vx_1 + \vx_2)$
+is also optimal, consider how many constraints this solution
+saturates. Apply complementary slackness to derive how many
+dual variables should be zero in any dual optimal solution).
+
+\bigskip
+
+\noindent\textbf{P4 (15 points)} \noindent\textbf{(A)} Consider a
+simple LP over a hyper-rectangle:
+
+\[ \max\ \mathbf{c}^t \mathbf{x}\ \mathsf{s.t.}\ \ell \leq \mathbf{x}
+\leq \mathbf{u} \]
+
+Here $\mathbf{c}$ represents the objective, and $\ell, \mathbf{u}$
+represent vectors of upper and lower bounds on $\mathbf{x}$. 
+
+Write down a linear time algorithm for solving the above LP.
+(\textbf{Hint:} The solution for each variable $x_i$ can be one of two
+possibilities, what are they?)
+
+\medskip
+
+\noindent\textbf{(B)} Using the result in (A) above, write down an
+algorithm to solve LPs of the form:
+
+\[ \begin{array}{rl}
+\max & \mathbf{c}^t \mathbf{y} \\
+\mathsf{s.t.} & \mathbf{y} = A \mathbf{x} \\
+& \mathbf{\ell}\ \leq\ \mathbf{x}\ \leq\ \mathbf{u} \\
+\end{array}\]
+
+(\textbf{Hint:} Eliminate $\mathbf{y}$ and use the result in (A) ).
+
+\noindent\textbf{P5 (20 points)} We will now prove a well-known
+and useful \emph{theorem of the alternative} called Motzkin
+transposition theorem using what we have learned so far.
+
+\begin{framed}
+\noindent\textbf{Theorem [Motzkin 1936]:} The following system of constraints \textsf{(P)} is infeasible
+
+\[ \begin{array}{l}
+A \mathbf{x} \leq \mathbf{b}\\
+ \mathbf{x} \geq 0 
+\end{array}\]
+
+ if and only if the system of constraints \textsf{(D)}  below is feasible
+
+\[ \begin{array}{l}
+A^t \mathbf{y} \geq 0,\\
+\mathbf{b}^t \mathbf{y} < 0\\
+\mathbf{y} \geq 0 \\
+\end{array}\]
+\end{framed}
+
+\noindent\textbf{(A)} Prove that if \textsf{(P)} is feasible then
+\textsf{(D)} cannot be feasible. (\textbf{Hint:} If $\vx, \vy$ are
+simultaneously feasible for \textsf{(P)}, \textsf{(D)} respectively
+then derive a contradiction by applying different sets of inequalities
+from \textsf{(P)} and \textsf{(D)} to show that $\mathbf{y}^t A \mathbf{x}$ will simultaneously be
+$< 0$ and $ \geq 0$.) 
+
+\medskip
+
+\noindent\textbf{(B)} Derive the dual for the auxilliary problem 
+
+\[ \begin{array}{rlll}
+\max & \mathbf{0}^t \mathbf{x}  &- x_0 \\
+\mathsf{s.t.} & A \mathbf{x} &  - \mathbf{1} x_0 & \leq \mathbf{b} \\
+& \mathbf{x},  & x_0 & \geq 0 \\
+\end{array}\]
+Note that $\mathbf{1}$ is the column vector of all $1$s.
+Recall that the auxilliary problem above always has an optimal
+solution, and if \textsf{(P)} is infeasible, then the optimal value of this
+auxilliary problem is strictly negative. Call it $\beta^* < 0$. 
+
+\medskip
+
+\noindent\textbf{(C)} Prove using \textbf{(B)}  that if system 
+\textsf{(P)} is infeasible then system \textsf{(D)} is feasible. (\textbf{Hint:} Use
+strong duality to conclude that the dual problem derived in 
+\textbf{(B)} has to have an optimal solution whose value
+is $\beta^*$. Proceed from there to conclude a solution for system 
+(D). )
+
+
+
+\end{document}
