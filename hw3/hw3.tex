@@ -21,7 +21,7 @@
 \noindent
 \textbf{P1.}
 \\
-\noindent (A)
+\noindent\textbf{(A)}
 \\
 Assign dual variables $y_i$ to each of the constraint equations of the primal LP except for the non-negativity constraints.
 \[ \begin{array}{rllllll}
@@ -55,7 +55,7 @@ Changing the dual LP into standard form and adding the slack variables $z_1, z_2
 
 \medskip
 
-\noindent (B)
+\noindent\textbf{(B)}
 \\
 If the primal objective is $\eta = \max -x_1 - x_2 - x_3 - x_4$ then the dual problem in standard form is
 \[\begin{array}{rllllllll}
@@ -102,7 +102,7 @@ Reinstating the original objective function $\zeta$ fpr $\eta$ we get
 
 \medskip
 
-\noindent (C)
+\noindent\textbf{(C)}
 \\
 The dual problem is
 \[\begin{array}{rllllll}
@@ -142,8 +142,9 @@ We see that $y_2$ is an entering variable, but there is no leaving variable for 
 \bigskip
 
 
-\noindent\textbf{P2 (15 points) }  \textbf{(A)} For the LP in problem P1 (A) set up the KKT conditions
-following the complementary slackness theorem.
+\noindent\textbf{P2.}
+\\
+\noindent\textbf{(A)}
 \\
 The KKT conditions are
 \begin{enumerate}
@@ -178,16 +179,7 @@ The KKT conditions are
   \end{enumerate}
 \end{enumerate}
 
-\noindent\textbf{(B)} Now solve the KKT conditions to find  dual
-variables corresponding to  the following primal feasible solution?
-\[ x_1 = 0,\ x_2 = 2,\ x_3 = 0,\ x_4 = 0 \]
-
-Is this primal solution optimal? 
-
-Do not attempt to use an LP solver for this part. Instead substitute
-the primal solution into the KKT constraints and solve for dual
-solutions that are dual feasible and complementary to the primal
-solution above.
+\noindent\textbf{(B)}
 \\
 First let's find $w_1, w_2, w_3$ with the solution 
 \[ x_1 = 0,\ x_2 = 2,\ x_3 = 0,\ x_4 = 0 \]
@@ -221,6 +213,8 @@ constraints. Now, since the solution $\frac{1}{2} (\vx_1 + \vx_2)$
 is also optimal, consider how many constraints this solution
 saturates. Apply complementary slackness to derive how many
 dual variables should be zero in any dual optimal solution).
+\\
+
 
 \bigskip
 
@@ -271,13 +265,29 @@ A^t \mathbf{y} \geq 0,\\
 \end{array}\]
 \end{framed}
 
-\noindent\textbf{(A)} Prove that if \textsf{(P)} is feasible then
-\textsf{(D)} cannot be feasible. (\textbf{Hint:} If $\vx, \vy$ are
-simultaneously feasible for \textsf{(P)}, \textsf{(D)} respectively
-then derive a contradiction by applying different sets of inequalities
-from \textsf{(P)} and \textsf{(D)} to show that $\mathbf{y}^t A \mathbf{x}$ will simultaneously be
-$< 0$ and $ \geq 0$.) 
-
+\noindent\textbf{(A)}
+\\
+We need to show $y^tAx$ can be $<0$ and $\geq 0$ simultaneously.\\
+\\
+Because $y \geq 0$
+\begin{align*}
+&Ax \leq b \\
+&\Rightarrow y^tAx \leq y^tb \\
+&= b^ty < 0
+\end{align*}
+This shows $y^tAx < 0$.\\
+\\
+Because $x \geq 0$
+\begin{align*}
+&A^ty \geq 0 \\
+&\Rightarrow x^tA^ty \geq x^t*0\\
+&\Rightarrow (Ax)^ty \geq 0 \\
+&\Rightarrow ((Ax)^ty)^t \geq 0 \\
+&\Rightarrow y^tAx \geq 0
+\end{align*}
+This shows $y^tAx \geq 0$.\\
+\\ 
+If both systems are feasible then $y^tAx \geq 0$ and $y^tAx < 0$ which is impossible.  This means only one system can be feasible at a time. 
 \medskip
 
 \noindent\textbf{(B)} Derive the dual for the auxilliary problem 
@@ -290,7 +300,17 @@ $< 0$ and $ \geq 0$.)
 Note that $\mathbf{1}$ is the column vector of all $1$s.
 Recall that the auxilliary problem above always has an optimal
 solution, and if \textsf{(P)} is infeasible, then the optimal value of this
-auxilliary problem is strictly negative. Call it $\beta^* < 0$. 
+auxilliary problem is strictly negative. Call it $\beta^* < 0$.
+\\
+The dual problem of the auxillary problem is
+\[ \begin{array}{rlll}
+\min & b^ty \\
+\mathsf{s.t.} 
+& A^ty &  & \geq 0 \\
+& -1^ty & & \geq -1 \\
+& y & & \geq 0
+\end{array}\]
+The optimal value of the auxillary problem is $\beta^*$ which is $< 0$.
 
 \medskip
 
@@ -300,6 +320,18 @@ strong duality to conclude that the dual problem derived in
 \textbf{(B)} has to have an optimal solution whose value
 is $\beta^*$. Proceed from there to conclude a solution for system 
 (D). )
+\\
+Strong duality theorem says
+\[
+c^tx = b^ty
+\]
+We assume system (P) is infeasible and system (D) is feasible.  We then have the system (D) constraints
+\[ \begin{array}{l}
+A^t \mathbf{y} \geq 0,\\
+\mathbf{b}^t \mathbf{y} < 0\\
+\mathbf{y} \geq 0 \\
+\end{array}\]
+
 
 
 
