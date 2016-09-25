@@ -138,7 +138,7 @@ z_3 & +3 & +2y_1 & & & -2z_1 \\
 \hline
 -\xi & +\frac{4}{3} & +\frac{y_1}{3} & +\frac{y_2}{3} & & -\frac{4z_1}{3}
 \end{array}\]
-We see that $y_2$ is an entering variable, but there is no leaving variable for it.  This means this dual dictionary is unbounded which means the primal LP is infeasible
+We see that $y_2$ is an entering variable, but there is no leaving variable for it.  This means this dual dictionary is unbounded and therefore the primal LP is infeasible
 \bigskip
 
 
@@ -148,10 +148,34 @@ following the complementary slackness theorem.
 The KKT conditions are
 \begin{enumerate}
   \item $Ax + w = b$ (Primal LP feasibility constraints)
+  \begin{enumerate}
+    \item $x_1 - x_2 + x_3 + w_1 = -1$
+    \item $x_1 + x_3 + x_4 + w_2 = 0$
+    \item $2x_2 + x_3 +3x_4 + w_3= 4$
+    \item $x_1, x_2, x_3, x_4, w_1, w_2, w_3 \geq 0 $
+  \end{enumerate}
   \item $A^{t}y - z = c$ (Dual LP feasibility constraints)
+  \begin{enumerate}
+    \item $y_1 + y_2 - z_1 = 2$
+    \item $-y_1 + 2y_3 - z_2 = 3$
+    \item $y_1 + y_2 + y_3 - z_3 = -1$
+    \item $y_2 + 3y_3 -z_4 = 1$
+    \item $y_1, y_2, y_3, z_1, z_2, z_3, z_4 \geq 0$
+  \end{enumerate}
   \item $x, y, w, z \geq 0$ (Nonnegativity constraints)
-  \item $x_iz_i = 0 \, for \, i = 1,2,\ldots,n$ (Complementary slackness)
-  \item $w_jy_j = 0 \, for \, j = 1,2,\ldots,m$ (Complementary slackness)
+  \item $x_iz_i = 0 \, for \, i = 1,2,\ldots,n$ (Complementary slackness constraints)
+  \begin{enumerate}
+    \item $x_1z_1 = 0$
+    \item $x_2z_2 = 0$
+    \item $x_3z_3 = 0$
+    \item $x_4z_4 = 0$
+  \end{enumerate}
+  \item $w_jy_j = 0 \, for \, j = 1,2,\ldots,m$ (Complementary slackness constraints)
+  \begin{enumerate}
+    \item $w_1y_1 = 0$
+    \item $w_2y_2 = 0$
+    \item $w_3y_3 = 0$
+  \end{enumerate}
 \end{enumerate}
 
 \noindent\textbf{(B)} Now solve the KKT conditions to find  dual
@@ -165,22 +189,25 @@ the primal solution into the KKT constraints and solve for dual
 solutions that are dual feasible and complementary to the primal
 solution above.
 \\
-Since $x_2 > 0$, we know that $z_2 = 0$ because of the complementary slackness theorem.  We also know that 
+First let's find $w_1, w_2, w_3$ with the solution 
+\[ x_1 = 0,\ x_2 = 2,\ x_3 = 0,\ x_4 = 0 \]
+Plugging that solution into the primal feasibility constraints we get
+\[w_1 = 1, w_2 = 0, w_3 = 0\]
+Using the the complementary slackness constraints from part A, we get
+\[y_1 = 0, z_2 = 0\]
+The variables that aren't necessarily 0 are
+\[y_2, y_3, z_1, z_3, z_4\]
+If we eliminate the variables that are 0 from the dual feasiblity constraints, we are left with the equations
 \begin{align*}
-w_1 & = -1 - x_1 + x_2 - x_3 = -1 + 2 = 1\\
-w_2 & = 0 - x_1 - x_3 - x_4 = 0\\
-w_3 & = 4 - 2x_2 + x_3 +3x_4 = 0\\
+y_2 - z_1 &= 2 \\
+2y_3 &= 3 \\
+y_2 + y_3 - z_3 &= -1 \\
+y_2 + 3y_3 - z_4 &= 1 \\
 \end{align*}
-This means $y_1 = 0$ must be zero because of the complementary slackness theorem.  This tells us $2y_3 = 3 + y_1 - z_2 \Rightarrow y_3 = \frac{3}{2}$.
-
-
-\begin{tabular}{|c|c|}
-\hline
-Primal & Dual \\ \hline
-$x_1 = $ & $y_1 = 0$ \\ \hline
-$x_2 = $ & $y_2 = $ \\ \hline
-$x_3 = $ & $y_3 = \frac{3}{2}$ \\ \hline
-\end{tabular}
+Guessing values for the variables and solving for those remaining equations, we get the dual solution
+\[y_1 = 0, y_2 = 4, y_3 = \frac{3}{2}, z_1 = 2, z_2 = 0, z_3 = \frac{13}{2}, z_4 = \frac{15}{2}\]
+If we plug in the primal solution into the primal objective function we get 
+$2(0) + 3(2) - (0) + 0 = 6$.  If we plug the dual solution into the dual objective function we get $-(0) + 4(\frac{3}{2}) = 6$.  Because both the dual and primal solution produce the same objective function value we know that the primal solution is optimal.
 
 \bigskip
 
