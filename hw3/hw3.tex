@@ -331,7 +331,11 @@ A^t \mathbf{y} \geq 0,\\
 \mathbf{b}^t \mathbf{y} < 0\\
 \mathbf{y} \geq 0 \\
 \end{array}\]
-
+that have to be satisfied.  If we assume strong duality is true in this case then the dual problem objective function value of the auxiliary problem equals the auxiliary problem objective function value.
+\[
+b^ty = c^tx - x_0 = \beta* < 0
+\]
+This means the constraint $b^ty < 0$ of system (D) is satisfied.  This also means that the other contraints of system (D) match the constraints of the dual problem of the auxiliary problem and are therefore satisfied by the dual problem of the auxiliary problem.  This means system (D) is feasible and system (P) according to part (A) is infeasible.
 
 
 
