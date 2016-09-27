@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage{fullpage}
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsmath,amssymb,amsfonts,listings}
 \renewcommand\vec[1]{\mathbf{#1}}
 \usepackage{listings}
 \usepackage[table]{xcolor}
@@ -230,6 +230,27 @@ represent vectors of upper and lower bounds on $\mathbf{x}$.
 Write down a linear time algorithm for solving the above LP.
 (\textbf{Hint:} The solution for each variable $x_i$ can be one of two
 possibilities, what are they?)
+\\
+\subsection*{Psuedocode}
+{\fontfamily{pcr}\selectfont
+FindMaxA($c$, $x$, $u$, $l$) \{\\
+$\zeta = 0$ \# Objective function value\\
+$i = 0$ \\
+while $i$ < size of $c$:\\
+\hspace*{1em} if $c_i$ < 0: \\
+\hspace*{2em} $x_i = l_i$ \\
+\hspace*{1em} else: \\
+\hspace*{2em} $x_i = u_i$ \\
+\hspace*{1em} $\zeta = \zeta + (c_i*x_i)$ \\
+\hspace*{1em} $i = i + 1$ \\
+return $\zeta$ \\
+\}
+}
+\subsection*{Correctness Proof}
+We wish to maximize the objective function $c^tx$ of the linear program.  $x$'s lower bound is $l$ and its upper bound is $u$.  It can take on either of these values.  Because we want to maximize the objective function, if $c_i < 0$ -- $c_i$ is negative -- we want $x_i$ to be the lowest possible value $l$ so when $c_i*x_i$ is added to the objective function value $\zeta$, $\zeta$ decreases as little as possible.  If $c_i \ge 0$ -- $c_i$ is positive or 0 -- we want $x_i$ to be the largest possible value $u$ so when $c_i*x_i$ is added to the objective function value $\zeta$, $\zeta$ increases as much as possible.
+\subsection*{Runtime Proof}
+We iterate through the vector $c$ which is of size $n$ for the number of variables in the vector $x$.  We do $n$ variable assignments and $n$ additions.  The runtime is O(n).
+
 
 \medskip
 
@@ -243,6 +264,26 @@ algorithm to solve LPs of the form:
 \end{array}\]
 
 (\textbf{Hint:} Eliminate $\mathbf{y}$ and use the result in (A) ).
+\\
+\subsection*{Psuedocode}
+{\fontfamily{pcr}\selectfont
+FindMaxB($c$, $A$, $x$, $l$, $u$) \{ \\
+\hspace*{1em} z = column vector of size n with all 0's \\
+\hspace*{1em} m = number of rows in A \\
+\hspace*{1em} n = number of columns in A \\
+\hspace*{1em} for(j=0;j<n;i++) \{ \\
+\hspace*{2em} for(i=0;i<m;i++) \{ \\
+\hspace*{3em} z[j] = z[j] + c[i]*A[i][j] \\
+\hspace*{2em} \} \\
+\hspace*{1em} \} \\
+\hspace*{1em} $\zeta$ = FindMaxA(y, x, u, l) \\
+\hspace*{1em} return $\zeta$ \\
+\}
+}
+\subsection*{Correctness Proof}
+We first combine the constants in the c vector and A matrix into another vector z.  The values in z will now either be positive or negative.  We use the function FindMaxA() from part (A) to determine which value, l or u, x should be set to.  We wish to maximize the objective function so if the value in z is negative we want to choose the smallest value of x.  If z is positive we want to choose the largest value of x.  This will ensure the objective function value $\zeta$ is maximized.  
+\subsection*{Runtime Proof}
+We go through each row and column of the matrix A.  This takes m*n time.  When then iterate through c in FindMaxA() from part (A) and this takes n times.  The runtime is then O(m*n+n).
 
 \noindent\textbf{P5 (20 points)} We will now prove a well-known
 and useful \emph{theorem of the alternative} called Motzkin
