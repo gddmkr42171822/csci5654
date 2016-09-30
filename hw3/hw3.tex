@@ -203,33 +203,17 @@ $2(0) + 3(2) - (0) + 0 = 6$.  If we plug the dual solution into the dual objecti
 
 \bigskip
 
-\noindent\textbf{P3 (10 points)} Consider a standard form LP wherein
-two different non-degenerate vertices $\vx_1,\ \vx_2$ are both optimal for the primal. Show using the
-complementary slackness theorem that any dual optimal solution
-is degenerate.
-
-(\textbf{Hint:} Each vertex saturates precisely $n$ of the
-constraints. Now, since the solution $\frac{1}{2} (\vx_1 + \vx_2)$
-is also optimal, consider how many constraints this solution
-saturates. Apply complementary slackness to derive how many
-dual variables should be zero in any dual optimal solution).
+\noindent\textbf{P3.}
 \\
-
+For the solution $\frac{1}{2} (\vx_1 + \vx_2)$ it is possible that n-1 constraints are saturated.  For example, if you have a problem with 2 variables (2 dimensional space) and 4 constraints, and it is in the shape of a square, it is possible for two optimal solutions ($x_1$, $x_2$) to be vertices on a single line that are satured by 2 lines.  The solution $\frac{1}{2} (\vx_1 + \vx_2)$ would be the midpoint on that single line and only be saturated by 1 constraint.\\
+\\
+If n-1 constraints are saturated in the primal then n-1 variables are non-basic in the primal.  The Complementary Slackness Theorem says there will be n+m variables, between the dual and the primal, that are equal to 0.  This means there should be n+m saturated constraints.  If n-1 variables are non-basic in the primal, then there are m+1 variables equal to 0 in the dual.  This means there are m+1 saturated constraints in the dual.  Given that there can only be m non-basic variables in the dual, there is one basic variable in the dual equal to 0.  This means the the dual optimal solution, when there there are two optimal, non-degenerate solutions to the primal, is degenerate.   
 
 \bigskip
 
-\noindent\textbf{P4 (15 points)} \noindent\textbf{(A)} Consider a
-simple LP over a hyper-rectangle:
-
-\[ \max\ \mathbf{c}^t \mathbf{x}\ \mathsf{s.t.}\ \ell \leq \mathbf{x}
-\leq \mathbf{u} \]
-
-Here $\mathbf{c}$ represents the objective, and $\ell, \mathbf{u}$
-represent vectors of upper and lower bounds on $\mathbf{x}$. 
-
-Write down a linear time algorithm for solving the above LP.
-(\textbf{Hint:} The solution for each variable $x_i$ can be one of two
-possibilities, what are they?)
+\noindent\textbf{P4.}
+\\
+\noindent\textbf{(A)}
 \\
 \subsection*{Psuedocode}
 {\fontfamily{pcr}\selectfont
@@ -243,7 +227,7 @@ while $i$ < size of $c$:\\
 \hspace*{2em} $x_i = u_i$ \\
 \hspace*{1em} $\zeta = \zeta + (c_i*x_i)$ \\
 \hspace*{1em} $i = i + 1$ \\
-return $\zeta$ \\
+return $\zeta$, $x$ \\
 \}
 }
 \subsection*{Correctness Proof}
@@ -251,19 +235,9 @@ We wish to maximize the objective function $c^tx$ of the linear program.  $x$'s 
 \subsection*{Runtime Proof}
 We iterate through the vector $c$ which is of size $n$ for the number of variables in the vector $x$.  We do $n$ variable assignments and $n$ additions.  The runtime is O(n).
 
-
 \medskip
 
-\noindent\textbf{(B)} Using the result in (A) above, write down an
-algorithm to solve LPs of the form:
-
-\[ \begin{array}{rl}
-\max & \mathbf{c}^t \mathbf{y} \\
-\mathsf{s.t.} & \mathbf{y} = A \mathbf{x} \\
-& \mathbf{\ell}\ \leq\ \mathbf{x}\ \leq\ \mathbf{u} \\
-\end{array}\]
-
-(\textbf{Hint:} Eliminate $\mathbf{y}$ and use the result in (A) ).
+\noindent\textbf{(B)}
 \\
 \subsection*{Psuedocode}
 {\fontfamily{pcr}\selectfont
@@ -276,8 +250,8 @@ FindMaxB($c$, $A$, $x$, $l$, $u$) \{ \\
 \hspace*{3em} z[j] = z[j] + c[i]*A[i][j] \\
 \hspace*{2em} \} \\
 \hspace*{1em} \} \\
-\hspace*{1em} $\zeta$ = FindMaxA(y, x, u, l) \\
-\hspace*{1em} return $\zeta$ \\
+\hspace*{1em} $\zeta$, $x$ = FindMaxA(z, x, u, l) \\
+\hspace*{1em} return $\zeta$, $x$ \\
 \}
 }
 \subsection*{Correctness Proof}
@@ -285,27 +259,10 @@ We first combine the constants in the c vector and A matrix into another vector 
 \subsection*{Runtime Proof}
 We go through each row and column of the matrix A.  This takes m*n time.  When then iterate through c in FindMaxA() from part (A) and this takes n times.  The runtime is then O(m*n+n).
 
-\noindent\textbf{P5 (20 points)} We will now prove a well-known
-and useful \emph{theorem of the alternative} called Motzkin
-transposition theorem using what we have learned so far.
+\bigskip
 
-\begin{framed}
-\noindent\textbf{Theorem [Motzkin 1936]:} The following system of constraints \textsf{(P)} is infeasible
-
-\[ \begin{array}{l}
-A \mathbf{x} \leq \mathbf{b}\\
- \mathbf{x} \geq 0 
-\end{array}\]
-
- if and only if the system of constraints \textsf{(D)}  below is feasible
-
-\[ \begin{array}{l}
-A^t \mathbf{y} \geq 0,\\
-\mathbf{b}^t \mathbf{y} < 0\\
-\mathbf{y} \geq 0 \\
-\end{array}\]
-\end{framed}
-
+\noindent\textbf{P5.}
+\\
 \noindent\textbf{(A)}
 \\
 We need to show $y^tAx$ can be $<0$ and $\geq 0$ simultaneously.\\
@@ -331,17 +288,7 @@ This shows $y^tAx \geq 0$.\\
 If both systems are feasible then $y^tAx \geq 0$ and $y^tAx < 0$ which is impossible.  This means only one system can be feasible at a time. 
 \medskip
 
-\noindent\textbf{(B)} Derive the dual for the auxilliary problem 
-
-\[ \begin{array}{rlll}
-\max & \mathbf{0}^t \mathbf{x}  &- x_0 \\
-\mathsf{s.t.} & A \mathbf{x} &  - \mathbf{1} x_0 & \leq \mathbf{b} \\
-& \mathbf{x},  & x_0 & \geq 0 \\
-\end{array}\]
-Note that $\mathbf{1}$ is the column vector of all $1$s.
-Recall that the auxilliary problem above always has an optimal
-solution, and if \textsf{(P)} is infeasible, then the optimal value of this
-auxilliary problem is strictly negative. Call it $\beta^* < 0$.
+\noindent\textbf{(B)}
 \\
 The dual problem of the auxillary problem is
 \[ \begin{array}{rlll}
@@ -355,12 +302,7 @@ The optimal value of the auxillary problem is $\beta^*$ which is $< 0$.
 
 \medskip
 
-\noindent\textbf{(C)} Prove using \textbf{(B)}  that if system 
-\textsf{(P)} is infeasible then system \textsf{(D)} is feasible. (\textbf{Hint:} Use
-strong duality to conclude that the dual problem derived in 
-\textbf{(B)} has to have an optimal solution whose value
-is $\beta^*$. Proceed from there to conclude a solution for system 
-(D). )
+\noindent\textbf{(C)}
 \\
 Strong duality theorem says
 \[
@@ -376,7 +318,7 @@ that have to be satisfied.  If we assume strong duality is true in this case the
 \[
 b^ty = c^tx - x_0 = \beta* < 0
 \]
-This means the constraint $b^ty < 0$ of system (D) is satisfied.  This also means that the other contraints of system (D) match the constraints of the dual problem of the auxiliary problem and are therefore satisfied by the dual problem of the auxiliary problem.  This means system (D) is feasible and system (P) according to part (A) is infeasible.
+This means the constraint $b^ty < 0$ of system (D) is satisfied.  This also means all of the the other contraints of system (D) match the constraints of the dual problem of the auxiliary problem except for $-1^ty \geq -1$.  In this case, because $b^ty < \beta*$ this constraints is always satisfied so it can be eliminated from the problem.
 
 
 
