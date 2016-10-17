@@ -1,0 +1,153 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{amsmath,amssymb,amsfonts}
+\renewcommand\vec[1]{\mathbf{#1}}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{framed,comment}
+\newcommand\vx {\mathbf{x}}
+\newcommand\vy {\mathbf{y}}
+\newcommand\vb{\mathbf{b}}
+\newcommand\vc{\mathbf{c}}
+\newcommand\red[1]{\textcolor{red}{#1}}
+\specialcomment{solution}{\bigskip\begin{leftbar}\par\noindent\textbf{Solution.} }{\end{leftbar} }
+\excludecomment{solution}
+\begin{document}
+
+\begin{tabular}{l}
+	\textbf{CSCI 5654-Fall16}: Assignment \#4 (Reading: 6.1-6.3,
+  7.1, 12).                                                  \\
+	\textbf{Due Date:} Monday, Oct 24, 2016 (before class)            \\
+	\textbf{In-class:} Assignment should be submitted on paper -- no emails. \\
+	\textbf{Distance Students:} Assignment may be submitted on paper or
+	by email.                                                                \\[10pt]
+
+	\textbf{Your Name:} \phantom{Supercalifragilisticexpialidocius Smith}    \\
+	\hline
+	                                                                         \\[10pt]
+\end{tabular}
+
+\noindent\textbf{P1. (10 points)}  Express the problems below as linear
+programs by adding suitable additional variables.
+
+\bigskip
+
+\noindent\textbf{(A)} $\min_{x_1, x_2, x_3 \in \mathbb{R}^3}\ \max( 2 x_1 + 3 x_2 - 5 x_3,\ x_1,\ x_2,\ 2
+x_1 - x_2 + x_3)$.
+
+\medskip 
+
+\noindent\textbf{(B)} $\min_{x_1, x_2, x_3 \in \mathbb{R}^3}\ \left(
+  |x_1 + x_2| + | x_2 - x_3 | + | x_3 - x_1 | + | x_1 + x_2 + x_3 |
+\right) $.
+
+\medskip
+
+\noindent\textbf{(C)} \[ \begin{array}{rl}
+\min\ & \max\left( | x_1 | ,\ |x_2| ,\ |x_3|,\ |x_1+
+  x_2 | \right) \\
+ \mathsf{subj. to}\ & x_1 - x_2 \leq 5 \\
+&  x_2 \leq 3 \end{array} \]
+
+\bigskip
+
+\noindent\textbf{P2. (15 points)} The attached spreadsheet provides
+values of insulin input $u(t)$ and the blood glucose levels $G(t)$ 
+for a patient with type-1 diabetes. Our goal is to use an 
+ARMAX model that predicts the output $G(t+1)$ as a function of the
+past glucose and insulin values:
+
+\[ G(t+1) = a_0 G(t) + a_1 G(t-1) + \cdots + a_{10} G(t - 10) + b_0
+  u(t) + \cdots + b_{5} u(t-5) \]
+
+Use linear regression using $L_1$ norm on the given data to 
+learn the arma model
+coefficients $a_0, a_1, \ldots, b_0, \ldots, b_5$. Attach your code to this assignment, 
+write down the coefficients obtained, and plot the \emph{residuals}. You are encouraged to use
+MATLAB or Python to solve this problem. Please attach all the problem
+related work in a single place in your assignment (in other words,
+arrange your writeup carefully so that we can find all the information
+in one place).
+
+\noindent\textbf{Hint:} First the problem needs to be posed as a
+regression problem of the form $A \mathbf{x} \simeq \mathbf{b}$.
+Identify what $A, \mathbf{b}$ and $\mathbf{x}$ are for this problem.
+
+
+\bigskip
+
+\noindent\textbf{P3 (25 points).} Consider the linear programming problem below:
+
+\[ \begin{array}{llllllllll}
+\max & -2 x_1 & - 3 x_2 & - x_3 & - x_4 &  & + x_6 \\[6pt]
+\mathsf{s.t.} & x_1 & - x_2 &   &   &  & - x_6 & \leq 3\\[3pt]
+&  x_1 &    &     &    -x_4 &   -x_5  &  & \leq -1 \\[3pt]
+&  &  & - x_3 & & & - x_6 & \leq -2 \\[3pt]
+&  & -x_2 & -x_3 & + x_4 & & + x_6 & \leq 4\\[3pt]
+& x_1 & & + x_3 & & + x_5 & + x_6 & \leq 6\\[3pt]
+& -x_1 & &  & -x_4 & + x_5 & - x_6 & \leq -2 \\[3pt]
+& \multicolumn{6}{r}{x_1,\ \ldots,\ x_6} & \geq 0\\[3pt]
+\end{array}\]
+
+We add slack variables $w_1, w_2, \ldots, w_6$ for the $6$
+constraints. For your convenience, the problem data is provided
+separately for easy cut and paste into your python/matlab/other code.
+
+\noindent\textbf{(A)} Compute and write out the 
+dictionaries for the following
+set of basic variables. If no dictionaries exist, say why.
+
+\begin{enumerate}
+\item $\{ x_1, x_2, x_3, w_1, w_2, w_3 \}$.
+\item $\{ x_2, x_2, x_5, w_3, w_5, w_6 \}$.
+\item $\{x_1, x_2, x_6, w_{4}, w_5, w_6 \}$.
+\end{enumerate}
+
+
+\noindent\textbf{(B)} Perform one step of the revised simplex method for the dictionary with the basis:
+\[ \{x_3, x_4, x_5, w_1, w_2, w_6 \} \]
+
+\begin{enumerate}
+\item Compute the constant column and objective rows of this dictionary.
+\item Choose the entering variable with the largest coefficient.
+\item Set up the equations to construct the column for the entering
+  variable.
+\item Choose the leaving variable.
+\item Write down the basic variables in the next dictionary.
+\end{enumerate}
+
+You may use MATLAB or Python to perform the matrix calculations
+required. You are encouraged to code up this process as this will be
+important for your programming assignment.
+
+
+\noindent\textbf{(C)} Write down the final dictionary for the
+problem. First you may want to solve the problem using your favorite
+Simplex solver and work out what the basic variables should be from
+your solution.
+
+
+\noindent\textbf{(D)} We wish to now update the objective function to
+a new function 
+\[  (-2 x_1  - 3 x_2  - x_3  - x_4 + x_6 )  + \mu ( x_1 + x_2 +
+  x_6) \]
+where $\mu$ is a parameter. Write down the range of values of $\mu$
+for which the final dictionary from part (D) continues to remain final
+as the objective is changed.
+
+\noindent\textbf{(E)} Going back to (C), we wish to update the right
+hand sides of the original problem to 
+\[ \left( \begin{array}{l} 3 \\ -1 \\ -2 \\ 4 \\ 6 \\ -2 \end{array}
+  \right) + \lambda \left( \begin{array}{l}
+1 \\ 1\\ 0 \\ 0\\ 0 \\ -1 \end{array} \right) \]
+
+Calculate the range of values for $\lambda$ for which, the dictionary
+in (C) remains feasible.
+
+
+
+
+
+
+
+\end{document}
