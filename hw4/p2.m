@@ -87,6 +87,7 @@ for i = 1:m
     residuals = [residuals, trueGlucoseValues(i) - predictedGlucoseValues(i)];
 end
 
+subplot(2,1,1);
 scatter(t, residuals);
 hold on;
 plot(t, zeros(m));
@@ -94,5 +95,10 @@ grid on;
 title('Residuals vs history step');
 xlabel('History step');
 ylabel('Residual value');
+
+subplot(2,1,2);
+histogram(residuals);
+title('Histogram of residuals');
 saveas(2, 'residuals.png');
+
 

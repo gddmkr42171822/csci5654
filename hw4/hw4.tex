@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{fullpage}
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,graphicx,subfig,float,listings}
 \renewcommand\vec[1]{\mathbf{#1}}
 \usepackage{listings}
 \usepackage[table]{xcolor}
@@ -12,69 +13,137 @@
 \newcommand\red[1]{\textcolor{red}{#1}}
 \specialcomment{solution}{\bigskip\begin{leftbar}\par\noindent\textbf{Solution.} }{\end{leftbar} }
 \excludecomment{solution}
+
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
 \begin{document}
 
-\begin{tabular}{l}
-	\textbf{CSCI 5654-Fall16}: Assignment \#4 (Reading: 6.1-6.3,
-  7.1, 12).                                                  \\
-	\textbf{Due Date:} Monday, Oct 24, 2016 (before class)            \\
-	\textbf{In-class:} Assignment should be submitted on paper -- no emails. \\
-	\textbf{Distance Students:} Assignment may be submitted on paper or
-	by email.                                                                \\[10pt]
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
 
-	\textbf{Your Name:} \phantom{Supercalifragilisticexpialidocius Smith}    \\
-	\hline
-	                                                                         \\[10pt]
+\begin{tabular}{l}
+	\textbf{CSCI 5654-Fall16}: Assignment \# 4 \\
+	\textbf{Your Name: Robert Werthman} \phantom{Supercalifragilisticexpialidocius Smith} \\
+	\hline \\[10pt]
 \end{tabular}
 
-\noindent\textbf{P1. (10 points)}  Express the problems below as linear
-programs by adding suitable additional variables.
-
+\noindent\textbf{P1.}
 \bigskip
 
-\noindent\textbf{(A)} $\min_{x_1, x_2, x_3 \in \mathbb{R}^3}\ \max( 2 x_1 + 3 x_2 - 5 x_3,\ x_1,\ x_2,\ 2
-x_1 - x_2 + x_3)$.
+\noindent\textbf{(A)}
+\\
+Let $\max( 2 x_1 + 3 x_2 - 5 x_3,\ x_1,\ x_2,\ 2) \leq t$.  We can then form the following linear program:
+\[\begin{array}{rllllll}
+\min & t \\
+\mathsf{s.t.} 
+& +2x_1 & +3x_2 & -5x_3 & \leq t \\
+& +2x_1 & -x_2 & +x_3 & \leq t \\
+& x_1, & x_2 & & \leq t \\
+\end{array}\]
 
 \medskip 
 
-\noindent\textbf{(B)} $\min_{x_1, x_2, x_3 \in \mathbb{R}^3}\ \left(
-  |x_1 + x_2| + | x_2 - x_3 | + | x_3 - x_1 | + | x_1 + x_2 + x_3 |
-\right) $.
+\noindent\textbf{(B)}
+\\
+Let $t_1$, $t_2$, $t_3$, $t_4 \geq 0$. \\
+Let $|x_1 + x_2| \leq t_1$, $| x_2 - x_3 | \leq t_2$, $| x_3 - x_1 | \leq t_3$, $| x_1 + x_2 + x_3 | \leq t_4$.\\
+You now have the linear problem
+\[\begin{array}{rllllll}
+\min & +t_1 & +t_2 & +t_3 & +t_4 \\
+\mathsf{s.t.} 
+& +x_1 & +x_2 & & & \leq t_1 \\
+& -x_1 & -x_2 & & & \leq t_1 \\
+& & +x_2 & -x_3 & & \leq t_2 \\
+& & -x_2 & +x_3 & & \leq t_2 \\
+& -x_1 & & +x_3 & & \leq t_3 \\
+& +x_1 & & -x_3 & & \leq t_3 \\
+& +x_1 & +x_2 & +x_3 & & \leq t_3 \\
+& -x_1 & -x_2 & -x_3 & & \leq t_3 \\
+& t_1, & t_2 & t_3 & t_4 & \geq 0 \\
+\end{array}\]
 
 \medskip
 
-\noindent\textbf{(C)} \[ \begin{array}{rl}
-\min\ & \max\left( | x_1 | ,\ |x_2| ,\ |x_3|,\ |x_1+
-  x_2 | \right) \\
- \mathsf{subj. to}\ & x_1 - x_2 \leq 5 \\
-&  x_2 \leq 3 \end{array} \]
-
-\bigskip
-
-\noindent\textbf{P2. (15 points)} The attached spreadsheet provides
-values of insulin input $u(t)$ and the blood glucose levels $G(t)$ 
-for a patient with type-1 diabetes. Our goal is to use an 
-ARMAX model that predicts the output $G(t+1)$ as a function of the
-past glucose and insulin values:
-
-\[ G(t+1) = a_0 G(t) + a_1 G(t-1) + \cdots + a_{10} G(t - 10) + b_0
-  u(t) + \cdots + b_{5} u(t-5) \]
-
-Use linear regression using $L_1$ norm on the given data to 
-learn the arma model
-coefficients $a_0, a_1, \ldots, b_0, \ldots, b_5$. Attach your code to this assignment, 
-write down the coefficients obtained, and plot the \emph{residuals}. You are encouraged to use
-MATLAB or Python to solve this problem. Please attach all the problem
-related work in a single place in your assignment (in other words,
-arrange your writeup carefully so that we can find all the information
-in one place).
-
-\noindent\textbf{Hint:} First the problem needs to be posed as a
-regression problem of the form $A \mathbf{x} \simeq \mathbf{b}$.
-Identify what $A, \mathbf{b}$ and $\mathbf{x}$ are for this problem.
+\noindent\textbf{(C)}
+\\
+Let $\max( | x_1 | ,\ |x_2| ,\ |x_3|,\ |x_1+
+  x_2 |) \leq t$. \\
+You now have the linear problem
+\[\begin{array}{rllllll}
+\min & t \\
+\mathsf{s.t.} 
+& +x_1 & -x_2 & & \leq 5 \\
+& & +x_2 & & \leq 3 \\
+& +x_1 & & & \leq t \\
+& -x_1 & & & \leq t \\
+& & +x_2 & & \leq t \\
+& & -x_2 & & \leq t \\
+& & & +x_3 & \leq t \\
+& & & -x_3 & \leq t \\
+& +x_1 & +x_2 & & \leq t \\
+& -x_1 & -x_2 & & \leq t \\
+& t & & & \geq 0 \\
+\end{array}\]
 
 
 \bigskip
+\newpage
+\noindent\textbf{P2.}
+\\
+\lstinputlisting[basicstyle=\tiny]{p2.m}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Coefficient & Value \\ \hline
+$a_0$ & 8.704148513061227e-14 \\ \hline
+$a_1$ & -3.375077994860476e-14 \\\hline
+$a_2$ & -1.474376176702208e-13 \\\hline
+$a_3$ & 2.131628207280301e-13 \\\hline
+$a_4$ & -1.243449787580175e-13 \\\hline
+$a_5$ & -1.056932319443149e-13 \\\hline
+$a_6$ & 1.376676550535194e-13 \\\hline
+$a_7$ & -3.979039320256561e-13 \\\hline
+$a_8$ & 3.179678742526448e-13 \\\hline
+$a_9$ & 6.430411758628907e-13 \\\hline
+$a_{10}$ & 0.999999999999309 \\\hline
+$b_0$ & 1.989519660128281e-13 \\\hline
+$b_1$ & -2.060573933704291e-13 \\\hline
+$b_2$ & 1.847411112976261e-13 \\\hline
+$b_3$ & -8.526512829121202e-14 \\\hline
+$b_4$ & -1.207922650792170e-13 \\\hline
+$b_5$ & 7.815970093361102e-14 \\
+\hline
+\end{tabular}
+\end{center}
+\begin{figure}[H]
+\centering
+  \subfloat[Linear Regression Predictions]{
+  \includegraphics[scale=.6]{predictions.png}
+  }
+\end{figure}
+\begin{figure}[H]
+\centering
+  \subfloat[Residuals]{
+  \includegraphics[scale=.5]{residuals.png}
+  }
+\end{figure}
+
+\newpage
 
 \noindent\textbf{P3 (25 points).} Consider the linear programming problem below:
 
