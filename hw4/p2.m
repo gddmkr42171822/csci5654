@@ -1,6 +1,3 @@
-
-options = optimoptions('linprog', 'Algorithm', 'dual-simplex');
-
 % Read in the csv file skipping the first row
 M = csvread('insulinGlucose1.csv', 1);
 
@@ -42,7 +39,7 @@ end
 
 % Solve for the coefficents.
 % x will have an array of the coefficient values when it is solved.
-x = linprog(f,A,b);
+[x,fval] = linprog(f,A,b)
 
 % Recreate the matrix A without the additional absolute value constraints.
 A = [];
