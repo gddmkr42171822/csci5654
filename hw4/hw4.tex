@@ -227,12 +227,12 @@ w_6 & 1 & & +x_2 & +x_3 & +x_4 & -w_2 & -w_4 \\
 
 \noindent\textbf{(D)}
 \\
-\textbf{No solution.}
+This produces a new objective function: $(-2+u)x_1 + (-3+u)x_2 -x_3 -x_4 + (1+u)x_6$.  To make sure the dictionary is final and feasible we have to ensure that the objective row coefficients are $\leq 0$ and the constant column values are $\geq 0$.  Trying different values of $\mu$ I found a bound of $-1 \leq \mu \leq 0$ as values of the $\mu$ that kept the dictionary final and feasible.
 \bigskip
 
 \noindent\textbf{(E)} 
 \\
-\textbf{No solution.}
+We need to ensure that the constant column of the dictionary is $\geq 0$ to ensure the dictionary is feasible.  Trying different values of $\lambda$ I found a boud of $-1 \leq \lambda \leq +1$.
 \newpage
 \lstinputlisting[basicstyle=\scriptsize]{p3.m}
 

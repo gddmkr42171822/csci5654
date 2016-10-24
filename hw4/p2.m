@@ -1,3 +1,4 @@
+% Code for problem 2 of homework 4.
 % Read in the csv file skipping the first row
 M = csvread('insulinGlucose1.csv', 1);
 
