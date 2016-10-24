@@ -145,26 +145,9 @@ $b_5$ & 7.815970093361102e-14 \\
 
 \newpage
 
-\noindent\textbf{P3 (25 points).} Consider the linear programming problem below:
+\noindent\textbf{P3.}\\
 
-\[ \begin{array}{llllllllll}
-\max & -2 x_1 & - 3 x_2 & - x_3 & - x_4 &  & + x_6 \\[6pt]
-\mathsf{s.t.} & x_1 & - x_2 &   &   &  & - x_6 & \leq 3\\[3pt]
-&  x_1 &    &     &    -x_4 &   -x_5  &  & \leq -1 \\[3pt]
-&  &  & - x_3 & & & - x_6 & \leq -2 \\[3pt]
-&  & -x_2 & -x_3 & + x_4 & & + x_6 & \leq 4\\[3pt]
-& x_1 & & + x_3 & & + x_5 & + x_6 & \leq 6\\[3pt]
-& -x_1 & &  & -x_4 & + x_5 & - x_6 & \leq -2 \\[3pt]
-& \multicolumn{6}{r}{x_1,\ \ldots,\ x_6} & \geq 0\\[3pt]
-\end{array}\]
-
-We add slack variables $w_1, w_2, \ldots, w_6$ for the $6$
-constraints. For your convenience, the problem data is provided
-separately for easy cut and paste into your python/matlab/other code.
-
-\noindent\textbf{(A)} Compute and write out the 
-dictionaries for the following
-set of basic variables. If no dictionaries exist, say why.
+\noindent\textbf{(A)}
 
 \begin{enumerate}
 \item $\{ x_1, x_2, x_3, w_1, w_2, w_3 \}$.
@@ -233,31 +216,23 @@ The leaving variable with be $w_6$ because it constrains the entering variable t
 \\
 The basic variables will be $x_3,x_4,x_5,w_1,w_2,x_6$.
 \end{enumerate}
+
+\noindent\textbf{(C)}
+\\
+\textbf{Problem is unbounded.}
+\bigskip
+
+\noindent\textbf{(D)}
+\\
+\textbf{No solution.}
+\bigskip
+
+\noindent\textbf{(E)} 
+\\
+\textbf{No solution.}
+\bigskip
 \lstinputlisting[basicstyle=\tiny]{p3.m}
 
-\noindent\textbf{(C)} Write down the final dictionary for the
-problem. First you may want to solve the problem using your favorite
-Simplex solver and work out what the basic variables should be from
-your solution.
-\\
- \[\begin{array}{r|ccccccccccccc}
-  \end{array}\]
-\noindent\textbf{(D)} We wish to now update the objective function to
-a new function 
-\[  (-2 x_1  - 3 x_2  - x_3  - x_4 + x_6 )  + \mu ( x_1 + x_2 +
-  x_6) \]
-where $\mu$ is a parameter. Write down the range of values of $\mu$
-for which the final dictionary from part (D) continues to remain final
-as the objective is changed.
-
-\noindent\textbf{(E)} Going back to (C), we wish to update the right
-hand sides of the original problem to 
-\[ \left( \begin{array}{l} 3 \\ -1 \\ -2 \\ 4 \\ 6 \\ -2 \end{array}
-  \right) + \lambda \left( \begin{array}{l}
-1 \\ 1\\ 0 \\ 0\\ 0 \\ -1 \end{array} \right) \]
-
-Calculate the range of values for $\lambda$ for which, the dictionary
-in (C) remains feasible.
 
 
 
