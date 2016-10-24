@@ -1,4 +1,3 @@
-options = optimoptions('linprog','Algorithm','dual-simplex');
 
 A = [+1 -1 0 0 0 -1 +1 0 0 0 0 0;... 
      +1 0 0 -1 -1 0 0 +1 0 0 0 0;...
@@ -30,8 +29,9 @@ cB*(Binv*b);
 cN - cB*(Binv*N);
 
 % P3 a2
-xB = [1 2 5 9 11 12];
-xN = [3 4 6 7 8 10];
+xB = [5 6 7 8 9 10];
+xN = [1 2 3 4 11 12];
+
 
 B = A(:, xB);
 N = A(:, xN);
@@ -98,9 +98,26 @@ a_i = -Binv*N(:, 3);
 a_j = -(Binv*N);
 a_j = a_j(6,:);
 
-f = [-2 -3 -1 -1 0 1];
-A = [1 -1 0 0 0 -1;1 0 0 -1 -1 0;0 0 -1 0 0 -1;0 -1 -1 1 0 1;1 0 1 0 1 1;-1 0 0 -1 1 -1]
-b = [3 -1 -2 4 6 -2];
 % P3 c
-x = linprog(f, A, b, [], [], [], [], options) 
+options = optimoptions('linprog','Algorithm','dual-simplex');
+[x,fval] = linprog(-c, [], [], A, b, zeros(size(c)), [], options) 
+
+xB = [5 6 7 8 9 10];
+xN = [1 2 3 4 11 12];
+
+B = A(:, xB);
+N = A(:, xN);
+Binv = inv(B);
+% Dictionary constant value column.
+Binv*b
+% Dictionary coefficient value rows.
+-Binv*N
+
+cB = c(:, xB);
+cN = c(:, xN);
+% Objective function constant value.
+cB*(Binv*b)
+% Object function coefficient values.
+cN - cB*(Binv*N)
+
 
