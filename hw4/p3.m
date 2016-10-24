@@ -99,11 +99,14 @@ a_j = -(Binv*N);
 a_j = a_j(6,:);
 
 % P3 c
+f = [-2 -3 -1 -1 0 1];
+Y = [1 -1 0 0 0 -1;1 0 0 -1 -1 0;0 0 -1 0 0 -1;0 -1 -1 1 0 1;1 0 1 0 1 1;-1 0 0 -1 1 -1];
+x = [3 -1 -2 4 6 -2];
 options = optimoptions('linprog','Algorithm','dual-simplex');
-[x,fval] = linprog(-c, [], [], A, b, zeros(size(c)), [], options) 
+[x,fval] = linprog(-f, Y, x, [], [], zeros(size(f)), [], options)
 
-xB = [5 6 7 8 9 10];
-xN = [1 2 3 4 11 12];
+xB = [5 6 7 9 11 12];
+xN = [1 2 3 4 8 10];
 
 B = A(:, xB);
 N = A(:, xN);
