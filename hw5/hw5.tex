@@ -46,19 +46,15 @@ subproblems. Please do not use a ILP solver directly.
 \begin{tabular}{|l|l|l|}
 \hline
 Branches & Solution & Optimal value \\ \hline
-& $x = [-5\quad-5\quad1.5\quad-.5]$ & -2.5 \\ \hline
-$x_4 \leq -1$ & $x = [-3.5\quad-5\quad3.5\quad-1]$ & -2\\ \hline
-$x_4 \geq 0$ & $x = [-2\quad-4\quad3\quad0]$ & -2 \\ \hline
-$x_4 \leq -1$, $x_3 \leq 3$ & $x = [-4\quad-5\quad3\quad-1]$ & -2 \\ \hline
-$x_4 \leq -1$, $x_3 \geq 4$ & $x = [-4\quad-5\quad4\quad-2]$ & -1 \\ \hline
-$x_4 \leq -1$, $x_1 \leq -4$ & $x = [-4\quad-5\quad3\quad-1]$ & -2 \\ \hline
-$x_4 \leq -1$, $x_1 \geq -3$ & $x = [-3\quad-4.5\quad3.5\quad-1]$ & -1.5 \\ \hline
-$x_4 \leq -1$, $x_1 \geq -3$, $x_2 \leq -5$ & Infeasible & \\ \hline
-$x_4 \leq -1$, $x_1 \geq -3$, $x_2 \geq -4$ & $x = [-2.5\quad-4\quad3.5\quad-1]$ & -1\\ \hline
-$x_4 \leq -1$, $x_1 \geq -3$, $x_3 \leq 3$ & $x = [-3\quad-4\quad3\quad-1]$ & -1\\ \hline
-$x_4 \leq -1$, $x_1 \geq -3$, $x_3 \geq 4$ & $x = [-3\quad-4\quad4\quad-2]$ & -1.7764e-15\\ \hline
+& $x = [-5\quad-5\quad1.5\quad-.5]$ & 2.5 \\ \hline
+$x_4 \leq -1$ & $x = [-5\quad-5\quad2\quad-1]$ & 2\\ \hline
+$x_4 \geq 0$ & $x = [-2\quad-4\quad0\quad0]$ & 2 \\ \hline
 \end{tabular}
-
+\\ \\
+The optimal value of the objective function is 2.  One solution leads to this value: 
+$$
+x_1 = 1 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 1
+$$
 \noindent\textbf{(B)} 
 \[ \begin{array}{rlllll}
 \max & 2 x_1 &  & + 3 x_3 & + x_4 \\
@@ -82,11 +78,10 @@ $x_1 \leq 1$ & $x = [1\quad1\quad1\quad1]$ & 6 \\ \hline
 $x_1 \geq 2$ & Infeasible & \\ \hline
 \end{tabular}
 \\ \\
-The optimal value of the objective function is 6.  Two solutions lead to this value:
-\begin{align*}
-x_1 = 1 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 1 \\
-x_1 = 0 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 0 \\
-\end{align*}
+The optimal value of the objective function is 6.  One solution leads to this value:
+$$
+x_1 = 1 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 1
+$$
 
 
 
