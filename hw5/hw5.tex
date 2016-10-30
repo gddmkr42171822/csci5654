@@ -71,6 +71,23 @@ $x_4 \leq -1$, $x_1 \geq -3$, $x_3 \geq 4$ & $x = [-3\quad-4\quad4\quad-2]$ & -1
 &   &     & x_3 & & \in \{ 0, 1\} \\
 &   &     &    & x_4 & \in \{ -1, 0, 1\} \\
 \end{array}\]
+\\
+\begin{tabular}{|l|l|l|}
+\hline
+Branches & Solution & Optimal value \\ \hline
+& $x = [1.3333\quad1\quad1\quad.6667]$ & 6.3333 \\ \hline
+$x_4 \geq 1$ & $x = [1\quad1\quad1\quad1]$ & 6 \\ \hline
+$x_4 \leq 0$ & $x = [0\quad1\quad1\quad0]$ & 3 \\ \hline
+$x_1 \leq 1$ & $x = [1\quad1\quad1\quad1]$ & 6 \\ \hline
+$x_1 \geq 2$ & Infeasible & \\ \hline
+\end{tabular}
+\\ \\
+The optimal value of the objective function is 6.  Two solutions lead to this value:
+\begin{align*}
+x_1 = 1 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 1 \\
+x_1 = 0 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 0 \\
+\end{align*}
+
 
 
 
