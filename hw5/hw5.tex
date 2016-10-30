@@ -16,33 +16,16 @@
 \begin{document}
 
 \begin{tabular}{l}
-	\textbf{CSCI 5654-Fall16}: Assignment \#5 (Reading: Slides on ILP, Vanderbei Chapter 23).                                                  \\
-	\textbf{Due Date:} Friday, Nov. 4, 2016 (before class)            \\
-	\textbf{In-class:} Assignment should be submitted on paper -- no emails. \\
-	\textbf{Distance Students:} Assignment may be submitted on paper or
-	by email.                                                                \\[10pt]
-
-	\textbf{Your Name:} \phantom{Supercalifragilisticexpialidocius Smith}    \\
-	\hline
-	                                                                         \\[10pt]
+	\textbf{CSCI 5654-Fall16}: Assignment \#5 \\
+	\textbf{Robert Werthman} \phantom{Supercalifragilisticexpialidocius Smith} \\
+	\hline \\[10pt]
 \end{tabular}
 
-\noindent\textbf{P1. (10 points)} Solve each of the problems below using a branch-and-bound method. Write down the solution obtained and the enumeration tree
-obtained. You may use any LP solver of your choice to solve the
-subproblems. Please do not use a ILP solver directly.
-
-\noindent\textbf{(A)} 
-\[\begin{array}{rlllll}
-\max & 2 x_1 & - 3 x_2 & -2 x_3 & - x_4 \\
-\mathsf{s.t.} & x_1 & - x_2 & + x_3 &   & \leq 5 \\
-& x_1 & - 2 x_2 & - x_3 & +x_4   & \leq 3 \\
-& x_1 & - x_2 & - x_3 & - x_4 & \leq -1 \\
-& x_1, & x_2, & x_3, & x_4 & \in [-5, 5] \\
-& x_1, & x_2, & x_3, & x_4 & \in \mathbb{Z} \\
-\end{array} \]
-
-\noindent\textbf{Hint:} Use $x_4$ as the variable to branch on.
+\noindent\textbf{P1.}
 \\
+\noindent\textbf{(A)}
+\\
+Solve the initial linear equation and then branch on any variables that have a fractional value.  Add the constrains of the fractional variables, solve the linear equation, and repeat until the solution is integral and not fractional.\\ \\
 \begin{tabular}{|l|l|l|}
 \hline
 Branches & Solution & Optimal value \\ \hline
@@ -51,22 +34,13 @@ $x_4 \leq -1$ & $x = [-5\quad-5\quad2\quad-1]$ & 2\\ \hline
 $x_4 \geq 0$ & $x = [-2\quad-4\quad0\quad0]$ & 2 \\ \hline
 \end{tabular}
 \\ \\
-The optimal value of the objective function is 2.  One solution leads to this value: 
+The optimal value of the objective function is 2.  One solution leads to this value is: 
 $$
 x_1 = 1 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 1
 $$
-\noindent\textbf{(B)} 
-\[ \begin{array}{rlllll}
-\max & 2 x_1 &  & + 3 x_3 & + x_4 \\
-\mathsf{s.t.}  & x_1 & - x_2 &  & + x_4 & \leq 1 \\
-&  & 2 x_2 &  & - x_4 & \leq 2 \\
-& x_1 &  & - x_3 & - 2 x_4 & \leq -1 \\
-& -x_1 & &   & + x_4 & \leq 1\\
-& x_1 &  &   &    & \in \{ -2,-1, 0, 1,2 \} \\
-&   & x_2 &  &    & \in \{ -1, 0, 1 \} \\
-&   &     & x_3 & & \in \{ 0, 1\} \\
-&   &     &    & x_4 & \in \{ -1, 0, 1\} \\
-\end{array}\]
+
+
+\noindent\textbf{(B)}
 \\
 \begin{tabular}{|l|l|l|}
 \hline
@@ -78,39 +52,53 @@ $x_1 \leq 1$ & $x = [1\quad1\quad1\quad1]$ & 6 \\ \hline
 $x_1 \geq 2$ & Infeasible & \\ \hline
 \end{tabular}
 \\ \\
-The optimal value of the objective function is 6.  One solution leads to this value:
+The optimal value of the objective function is 6.  One solution leads to this value is:
 $$
 x_1 = 1 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 1
 $$
 
+\newpage
+\noindent\textbf{P2.}
+\\
+\noindent\textbf{Dictionary \# 1}
+\\
+First, we choose $x_1$ because it is a variable with a fractional solution.  We rewrite the equation for $x_1$ as:
+$$
+0.666667 x_{5} - 0.333333 x_{4} + x_1 = 0.666666666667
+$$
+Next we rewrite the above equation in terms of an integer part and a fractional part.
+$$
+(0x_5 - x_4 + x_1) + (0.666667 x_{5} + 0.777777 x_{4}) = 0 + 0.666666666667
+$$
+The fractional part $(0.666667 x_{5} + 0.777777 x_{4}) \geq 0.666666666667$.
+The cutting plane is then given by the equation:
+$$
+(0.666667 x_{5} + 0.777777 x_{4}) + w_6 = 0.666666666667
+$$
 
-
-
-\noindent\textbf{P2. (10 points)}  Consider the final dictionaries for 
-the LP relaxation of a few ILPs.  Assuming all variables are integers,
-write down all the cutting planes:
-
-Dictionary \# 1:
-\[\begin{array}{c| c c@{\hskip 2pt} c@{\hskip 2pt} }
- x_{1}   &  0.666666666667 & -0.666667 x_{5} & + 0.333333 x_{4}\\
- x_{2}   &  1 & -1  x_{5} &   \\
- x_{3}   &  2 & + 4  x_{5} & -1  x_{4}\\
-\hline
-z    &  1 & -1  x_{5} &   \\
-\end{array}\]
-
-
-Dictionary \# 2: 
-\[\begin{array}{c| c c@{\hskip 2pt} c@{\hskip 2pt} c@{\hskip 2pt} }
- x_{4}   &  4.33333333333 & + 0.333333 x_{8} & + 0.666667 x_{9} & -0.333333 x_{3}\\
- x_{5}   &  8.66666666667 & -0.333333 x_{8} & + 0.333333 x_{9} & -2.666667 x_{3}\\
- x_{6}   &  10  &    &   & -1  x_{3}\\
- x_{7}   &  3 & -3  x_{8} & + 1  x_{9} & -18  x_{3}\\
- x_{1}   &  5.66666666667 & -0.333333 x_{8} & -0.666667 x_{9} & + 0.333333 x_{3}\\
- x_{2}   &  1.33333333333 & + 0.333333 x_{8} & -0.333333 x_{9} & + 2.666667 x_{3}\\
-\hline
-z    &  7  &   & -1  x_{9} & -2  x_{3}\\
-\end{array}\]
+\noindent\textbf{Dictionary \# 2} 
+\\
+Equations for variables with fractional solutions:
+\begin{align*}
+-0.333333 x_{8} - 0.666667 x_{9} + 0.333333 x_{3} + x_{4} = 4.33333333333 \\
+0.333333 x_{8} - 0.333333 x_{9} + 2.666667 x_{3} + x_{5} = 8.66666666667 \\
+0.333333 x_{8} + 0.666667 x_{9} - 0.333333 x_{3} + x_{1} = 5.66666666667 \\
+-0.333333 x_{8} + 0.333333 x_{9} - 2.666667 x_{3} + x_{2} = 1.33333333333 \\
+\end{align*}
+Equations written with integral and fractional parts:
+\begin{align*}
+(-x_8 - x_9 +0x_3 + x_4) + (0.777777 x_{8} + 0.444443 x_9 + 0.333333 x_{3}) = 4 + .33333333333 \\
+(0x_8 - x_9 + 2x_3 +x_5) + (0.333333 x_{8} + 0.777777 x_{9} + 666667 x_{3}) = 8 + .66666666667 \\
+(0x_8 + 0x_9 - x_3 + x_1) + (0.333333 x_{8} + 0.666667 x_{9} + 0.777777 x_{3}) = 5 + .66666666667 \\
+(-x_8 + 0x_9 -3x_3 + x_2) + (0.777777 x_{8} + 0.333333 x_{9} + 0.444443 x_{3}) = 1 + .33333333333 \\
+\end{align*}
+Cutting planes for the above equations:
+\begin{align*}
+(0.777777 x_{8} + 0.444443 x_9 + 0.333333 x_{3}) + w_{10}= .33333333333 \\
+(0.333333 x_{8} + 0.777777 x_{9} + 666667 x_{3}) + w_{11}= .66666666667 \\
+(0.333333 x_{8} + 0.666667 x_{9} + 0.777777 x_{3}) + w_{12}= .66666666667 \\
+(0.777777 x_{8} + 0.333333 x_{9} + 0.444443 x_{3}) + w_{13}= .33333333333 \\
+\end{align*}
 
 \medskip
 
