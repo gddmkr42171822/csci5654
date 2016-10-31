@@ -34,7 +34,7 @@ $x_4 \leq -1$ & $x = [-5\quad-5\quad2\quad-1]$ & 2\\ \hline
 $x_4 \geq 0$ & $x = [-2\quad-4\quad0\quad0]$ & 2 \\ \hline
 \end{tabular}
 \\ \\
-The optimal value of the objective function is 2.  One solution leads to this value is: 
+The optimal value of the objective function is 2.  One solution that leads to this value is: 
 $$
 x_1 = 1 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 1
 $$
@@ -52,7 +52,7 @@ $x_1 \leq 1$ & $x = [1\quad1\quad1\quad1]$ & 6 \\ \hline
 $x_1 \geq 2$ & Infeasible & \\ \hline
 \end{tabular}
 \\ \\
-The optimal value of the objective function is 6.  One solution leads to this value is:
+The optimal value of the objective function is 6.  One solution that leads to this value is:
 $$
 x_1 = 1 \quad x_2 = 1 \quad x_3 = 1 \quad x_4 = 1
 $$
@@ -112,7 +112,7 @@ This is a 0-1 Integer Linear Program given by the following formulation:
 \[\begin{array}{rlllllllll}
 \min & \sum_{j=1}^{n} (cost_j*node_j) \\
 \mathsf{s.t. } \\
-& \sum_{j=1}^{n} I(W(i,j) \leq 1)*n_j \geq 1 \text{ for all }i = 1...n\\
+& \sum_{j=1}^{n} I(W(i,j) \leq 1)*n_j & \geq 1 \text{ for all }i = 1...n\\
 & n_j & \in \{0,1\} \\
 \end{array}\]
 For the objective function, we want to minimize the cost of placing hospitals.
@@ -129,7 +129,7 @@ $$x = [0\quad0\quad0\quad0\quad0\quad1\quad0\quad1]$$
 This means in order to minimize the cost of building the hospitals within the driving time of 1 hour for each node, hospitals should be placed at node 6 and node 8.  The total cost of the hospitals ends up being 2.1 million dollars.  
 
 \medskip
-
+\newpage
 \noindent\textbf{P4 (15 points)} Consider a polyhedron $P$ given
 by the constraints
  \[ A \mathbf{x} \leq \mathbf{b},\ \mathbf{\ell}\ \leq\ \mathbf{x}\ \leq\ \mathbf{u}\,. \]
@@ -150,18 +150,22 @@ $\mathbf{a} \leq \mathbf{x} \leq \mathbf{b}$, for given $\mathbf{a}, \mathbf{b}$
 
 \medskip
 
-\noindent\textbf{P5 (10 points)} We are given  sets of numbers
-$\left\langle{S_1,\ldots,S_k}\right\rangle$ such that each $S_i \subseteq \{1,\ldots, n\}$.
-For example, $n = 10$ and the sets are
-\[ S_1: \{ 1,3,6\},\ S_2:\ \{2, 7, 8\},\ S_3:\ \{1,8,9\},\ S_4:\ \{1,6,5,3\} \,.\]
-
-Our goal is to select a subset $S \subseteq \{ 1, 2, \ldots, n\}$ such that 
-$S \cap S_i \not= \emptyset$ for $i = 1,\ldots, k$ and the sum of elements
-in the chosen set $S$ is minimized.
-
-Formulate a $0-1$ ILP for the problem for given $n, k, \left\langle{S_1,\ldots,S_k}\right\rangle$. Also,
- solve it for the example above.
-
-
-
+\noindent\textbf{P5.}
+\\
+We have to find a subset $S$ that contains at least one element in the set $S_i$ for $i = 1,\ldots, k$ and the sum of the elements in $S$ is minimized.
+\[\begin{array}{rlllllllll}
+\min & \sum_{i=1}^{n} (i*x_i) \\
+\mathsf{s.t. } \\
+& \sum_{i=1}^{n} (i*x_{ij}) & \geq 1 \text{ for all }j = 1...k\\
+& x_i & \in \{0,1\} \\
+\end{array}\]
+$x_i = 1$ if the element $i$ is in the subset $S$ otherwise $x_i = 0$.  The constraint 
+$$
+\sum_{j=1}^{n} (j*x_{ji}) \geq 1 \text{ for all }i = 1...k
+$$
+says that for each set $S_i$, the subset $S$ must contain at least one element from $S_i$.  Solving the above example in the $0-1$ ILP we get the solution vector 
+$$
+x = [1\quad1\quad0\quad0\quad0\quad0\quad0\quad0\quad0\quad0]
+$$ 
+This means the subset $S = \{1, 2\}$ which sums to 3.
 \end{document}

@@ -10,8 +10,8 @@ A = [1 1 1 0 0 1 0 0
     0 0 1 0 1 1 1 1];
 A = A.*(-1);
 b = [-1 -1 -1 -1 -1 -1 -1 -1]';
-incon = 8;
+intcon = 8;
 ub = [1 1 1 1 1 1 1 1];
 lb = [0 0 0 0 0 0 0 0];
 
-[x,fval] = intlinprog(f,incon,A,b,[],[],lb,ub)
+[x,fval] = intlinprog(f,intcon,A,b,[],[],lb,ub)
