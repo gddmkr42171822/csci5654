@@ -122,7 +122,11 @@ $$
 $$
 says that for each node $i$ we want to make sure that there is a node $j$ that has a hospital $n_j = 1$ and is within 1 hour of it $I(W(i,j) \leq 1) = 1$. \\
 
-\noindent\textbf{(B)} Formulate and solve your ILP for the given example.
+\noindent\textbf{(B)}
+\\
+The code to the solution is at the end of this document.  The solution itself is the vector 
+$$x = [0\quad0\quad0\quad0\quad0\quad1\quad0\quad1]$$
+This means in order to minimize the cost of building the hospitals within the driving time of 1 hour for each node, hospitals should be placed at node 6 and node 8.  The total cost of the hospitals ends up being 2.1 million dollars.  
 
 \medskip
 

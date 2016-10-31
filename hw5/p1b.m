@@ -1,3 +1,4 @@
+% Problem 1 Part b
 options = optimoptions('linprog','Algorithm','dual-simplex');
 f = [2 0 3 1];
 A = [1 -1 0 1
