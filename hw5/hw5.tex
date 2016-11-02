@@ -130,24 +130,54 @@ This means in order to minimize the cost of building the hospitals within the dr
 
 \medskip
 \newpage
-\noindent\textbf{P4 (15 points)} Consider a polyhedron $P$ given
-by the constraints
- \[ A \mathbf{x} \leq \mathbf{b},\ \mathbf{\ell}\ \leq\ \mathbf{x}\ \leq\ \mathbf{u}\,. \]
-
-
-\begin{enumerate}[(a)]
-\item  Write down mixed integer programs that will find the
-point $\mathbf{x} \in P$ with the largest number of
-$0$ entries in $\mathbf{x}$, 
-\item Write down mixed integer programs that will find the
+\noindent\textbf{P4.}
+\\
+\noindent\textbf{(A)}
+We add the indicator variable $z_1...z_n$ to the problem.  If $x_i == 0$ then $z_i = 0$ else $z_i = 1$.  In this problem we want to minimize the sum of $z_i$ and this occurs best when $x_i$ is 0.
+\[\begin{array}{rlllllllll}
+\min & \sum z \\
+\mathsf{s.t. } \\
+& Ax & \leq b \\
+& x & \leq u*z \\
+& x & \geq \ell*z \\
+& x & \leq u \\
+& x & \geq \ell \\
+& z & \in \{0,1\} \\
+\end{array}\]
+The additional constraints:
+\begin{align*}
+x \leq u*z \\
+x \geq \ell*z \\
+\end{align*}
+say that if x is negative then z must equal 1, referring to $x \geq \ell*z$.  If x is positive then z must be equal to 1, referring to $x\leq u*z$.  But if x is 0 then z should be equal to 0 because this is a minimization problem.
+Write down mixed integer programs that will find the
 point $\mathbf{x} \in P$ with the smallest number of $0$ entries in $\mathbf{x}$.
-\end{enumerate}
-
-\noindent (c) Write down a mixed integer program that will search for a solution
+\\
+\noindent\textbf{(B)}\\
+We can use the same problem formulation from above except we make it a maximization problem instead of a minimization.
+\[\begin{array}{rlllllllll}
+\max & \sum z \\
+\mathsf{s.t. } \\
+& Ax & \leq b \\
+& x & \leq u*z \\
+& x & \geq \ell*z \\
+& x & \leq u \\
+& x & \geq \ell \\
+& z & \in \{0,1\} \\
+\end{array}\]
+The additional constraints:
+\begin{align*}
+x \leq u*z \\
+x \geq \ell*z \\
+\end{align*}
+say that if x is negative then z must equal 1, referring to $x \geq \ell*z$.  If x is positive then z must be equal to 1, referring to $x\leq u*z$.  But if x is 0 then z should be equal to 1 because this is a maximization problem.
+\\
+\noindent\textbf{(C)}Write down a mixed integer program that will search for a solution
 $\mathbf{x} \in P$ maximizing an objective function $\mathbf{c}^t \mathbf{x}$ 
 such that $\mathbf{x}$ \emph{does not satisfy}
 $\mathbf{a} \leq \mathbf{x} \leq \mathbf{b}$, for given $\mathbf{a}, \mathbf{b}$.
-
+\\
+In order to not satisfy the inequality $a \leq x \leq b$, x needs to be $< a$ or $> b$.
 \medskip
 
 \noindent\textbf{P5.}
