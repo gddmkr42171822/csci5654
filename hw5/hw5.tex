@@ -144,14 +144,12 @@ We add the indicator variable $z_1...z_n$ to the problem.  If $x_i == 0$ then $z
 & x & \geq \ell \\
 & z & \in \{0,1\} \\
 \end{array}\]
-The additional constraints:
+The additional constraints
 \begin{align*}
 x \leq u*z \\
 x \geq \ell*z \\
 \end{align*}
-say that if x is negative then z must equal 1, referring to $x \geq \ell*z$.  If x is positive then z must be equal to 1, referring to $x\leq u*z$.  But if x is 0 then z should be equal to 0 because this is a minimization problem.
-Write down mixed integer programs that will find the
-point $\mathbf{x} \in P$ with the smallest number of $0$ entries in $\mathbf{x}$.
+say that if $x_i$ is negative then $z_i$ must equal 1, referring to $x \geq \ell*z$.  If $x_i$ is positive then $z_i$ must be equal to 1, referring to $x\leq u*z$.  But if x is 0 then z should be equal to 0 because this is a minimization problem.
 \\
 \noindent\textbf{(B)}\\
 We can use the same problem formulation from above except we make it a maximization problem instead of a minimization.
@@ -165,21 +163,31 @@ We can use the same problem formulation from above except we make it a maximizat
 & x & \geq \ell \\
 & z & \in \{0,1\} \\
 \end{array}\]
-The additional constraints:
+The additional constraints
 \begin{align*}
 x \leq u*z \\
 x \geq \ell*z \\
 \end{align*}
 say that if x is negative then z must equal 1, referring to $x \geq \ell*z$.  If x is positive then z must be equal to 1, referring to $x\leq u*z$.  But if x is 0 then z should be equal to 1 because this is a maximization problem.
 \\
-\noindent\textbf{(C)}Write down a mixed integer program that will search for a solution
-$\mathbf{x} \in P$ maximizing an objective function $\mathbf{c}^t \mathbf{x}$ 
-such that $\mathbf{x}$ \emph{does not satisfy}
-$\mathbf{a} \leq \mathbf{x} \leq \mathbf{b}$, for given $\mathbf{a}, \mathbf{b}$.
+\noindent\textbf{(C)}
 \\
-In order to not satisfy the inequality $a \leq x \leq b$, x needs to be $< a$ or $> b$.
-\medskip
-
+In order to not satisfy the inequality $a \leq x \leq b$, x needs to be either $\ell \leq x \leq a$ or $b \leq x \leq u$.  The mixed integer program would look like:
+\[\begin{array}{rlllllllll}
+\max & c^{t}x \\
+\mathsf{s.t. } \\
+& Ax & \leq b \\
+& x \geq \ell*w+(1-w)*b \\
+& x \leq a*w+(1-w)*u \\
+& w & \in \{1,0\} \\
+\end{array}\]
+The additional constraints
+\begin{align*}
+x \geq \ell*w+(1-w)*b \\
+x \leq a*w+(1-w)*u \\
+\end{align*}
+say that if $w_i = 1$ then $\ell \leq x \leq a$.  If $w_i = 0$ then $b \leq x \leq u$.
+\newpage
 \noindent\textbf{P5.}
 \\
 We have to find a subset $S$ that contains at least one element in the set $S_i$ for $i = 1,\ldots, k$ and the sum of the elements in $S$ is minimized.
