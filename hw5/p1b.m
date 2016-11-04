@@ -9,19 +9,19 @@ b = [1 2 -1 1];
 ub = [2 1 1 1];
 lb = [-2 -1 0 -1];
 
-% [x, fval] = linprog(-f,A,b,[],[],lb,ub,options)
+[x, fval] = linprog(-f,A,b,[],[],lb,ub,options)
 
 % x_4 <= 0
 ub = [2 1 1 0];
 lb = [-2 -1 0 -1];
 
-% [x, fval] = linprog(-f,A,b,[],[],lb,ub,options)
+[x, fval] = linprog(-f,A,b,[],[],lb,ub,options)
 
 % x_4 >= 1
 ub = [2 1 1 1];
 lb = [-2 -1 0 1];
 
-% [x, fval] = linprog(-f,A,b,[],[],lb,ub,options)
+[x, fval] = linprog(-f,A,b,[],[],lb,ub,options)
 
 % x_1 <= 1
 ub = [1 1 1 1];

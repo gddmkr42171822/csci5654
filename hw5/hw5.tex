@@ -13,7 +13,27 @@
 \newcommand\red[1]{\textcolor{red}{#1}}
 \specialcomment{solution}{\bigskip\begin{leftbar}\par\noindent\textbf{Solution.} }{\end{leftbar} }
 \excludecomment{solution}
+
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
 \begin{document}
+
+\lstset{language=Matlab,%
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+}
 
 \begin{tabular}{l}
 	\textbf{CSCI 5654-Fall16}: Assignment \#5 \\
@@ -206,4 +226,10 @@ $$
 x = [1\quad1\quad0\quad0\quad0\quad0\quad0\quad0\quad0\quad0]
 $$ 
 This means the subset $S = \{1, 2\}$ which sums to 3.
+
+\lstinputlisting[basicstyle=\scriptsize]{p1a.m}
+\lstinputlisting[basicstyle=\scriptsize]{p1b.m}
+\lstinputlisting[basicstyle=\scriptsize]{p3b.m}
+\lstinputlisting[basicstyle=\scriptsize]{p5.m}
+
 \end{document}
